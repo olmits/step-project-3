@@ -1,7 +1,6 @@
 @import 'variables';
 
 .container {
-    width: 80%;
     margin: auto;
     .container-item__header {
         margin: 40px 0 10px 0;
@@ -29,10 +28,15 @@
         }
     }
     .container-item__board {
-        display: flex;
-        justify-content: flex-start;
-        flex-wrap: wrap;
-        background-color: $color-theme-2;
+        .container-item__board-space {
+            margin: auto;
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            border: 1px solid $color-theme-1;
+            border-radius: 2px;
+        }
+
     }
 }
 button {
@@ -89,4 +93,34 @@ button {
         transform: translate3d( 0, 0, 0) translateZ(0)
     }
 }
-  
+
+@media screen and (max-width: 767px) {
+    .container {
+        width: 90%;
+        .container-item__board {
+            .container-item__board-space {
+                min-height: 200px;
+            }
+        }
+    }
+}
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+    .container {
+        width: 80%;
+        .container-item__board {
+            .container-item__board-space {
+                min-height: 300px;
+            }
+        }
+    }
+}
+@media screen and (min-width: 1200px) {
+    .container {
+        width: 60%;
+        .container-item__board {
+            .container-item__board-space {
+                min-height: 400px;
+            }
+        }
+    }
+}
