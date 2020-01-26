@@ -1,0 +1,17 @@
+@import 'variables';
+
+.container {
+    width: 80%;
+    margin: auto;
+    .container-item__header {
+        display: flex;
+        justify-content: space-between;
+        background-color: $color-theme-1;
+    }
+    .container-item__board {
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        background-color: $color-theme-2;
+    }
+}
