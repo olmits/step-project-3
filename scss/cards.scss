@@ -9,8 +9,121 @@
         align-items: flex-end;
         .container-item__header-logo {
             .logo {
-                img {
-                    max-width: 70px;
+                .logo-animated {
+                    width: 160px;
+                    height: 160px;
+                    cursor: pointer;
+                    position: relative;
+                    margin: 10px auto;
+                    .sq {
+                        width: 60px;
+                        height: 60px;
+                        background: #94c5ee;
+                        position: absolute;
+                        left: 50px;
+                        top: 50px;
+                    }
+                    .s1 {
+                        display: inline-block;
+                        border-left: 30px solid transparent;
+                        border-right: 30px solid transparent;
+                        border-top: 0 solid transparent;
+                        border-bottom: 50px solid #94c5ee;
+                        position: absolute;
+                        left: 50px;
+                        @include transform(translateY(-10px));
+                        @include transform-origin(50% 100%);
+                        @include transition (all 1s ease-in-out);
+                        top: 0;
+                    }
+                    .s2 {
+                        display: inline-block;
+                        border-left: 30px solid transparent;
+                        border-right: 30px solid transparent;
+                        border-top: 50px solid #94c5ee;
+                        border-bottom: 0 solid transparent;
+                        position: absolute;
+                        bottom: 0;
+                        @include transform( translateY(10px) );
+                        @include transform-origin( 50% 0 );
+                        @include transition ( all 1s ease-in-out );
+                        left: 50px;
+                    }
+                    .s3 {
+                        display: inline-block;
+                        border-left: 0 solid transparent;
+                        border-right: 50px solid #94c5ee;
+                        border-top: 30px solid transparent;
+                        border-bottom: 30px solid transparent;
+                        position: absolute;
+                        left: 0;
+                        top: 50px;
+                        @include transform( translateX(-10px) );
+                        @include transform-origin( 100% 50% );
+                        @include transition ( all 1s ease-in-out );
+                    }
+                    .s4 {
+                        display: inline-block;
+                        border-left: 50px solid #94c5ee;
+                        border-right: 0 solid transparent;
+                        border-top: 30px solid transparent;
+                        border-bottom: 30px solid transparent;
+                        position: absolute;
+                        right: 0;
+                        top: 50px;
+                        @include transform( translateX(10px) );
+                        @include transform-origin( 0 50% );
+                        @include transition ( all 1s ease-in-out );
+                    }
+                    .text {
+                        font-family: Helvetica, sans-serif;
+                        position: absolute;
+                        left: 53%;
+                        color: #7ba5c7;
+                        text-transform: uppercase;
+                        font-size: 1.2em;
+                        letter-spacing: 6px;
+                        bottom: 20px;
+                        opacity:0;
+                        font-weight: 100;
+                        @include transform( translateX(-50%) );
+                        @include transition ( all 100ms linear );
+                    }
+                    .perspective {
+                        -webkit-transform-style: preserve-3d;
+                        transform-style: preserve-3d;
+                        perspective: 300px;
+                        position: absolute;
+                        left: 50%;
+                        width: 160px;
+                        height: 160px;
+                        margin-left: -80px;
+                        @include transform-origin( center );
+                        @include transform(rotateX(0deg));
+                        @include transition ( all 1s ease-in-out );
+                    }
+                    &:hover {
+                        .perspective {
+                            @include transform( rotateX(60deg) rotate(45deg) );
+                            .s1 {
+                                @include transform( translateX(0) rotateX(-126.87deg) );
+                            }
+                            .s2 {
+                                @include transform( translateX(0) rotateX(126.87deg) );
+                            }
+                            .s3 {
+                                @include transform( translateX(0) rotateY(126.87deg) );
+                            }
+                            .s4 {
+                                @include transform( translateX(0) rotateY(-126.87deg) );
+                                border-left: 50px solid #7ba5c7;
+                            }
+                        }
+                    .text {
+                        opacity: 1;
+                        @include transition ( all 500ms linear 500ms );
+                        }
+                    }
                 }
             }
         }
@@ -39,6 +152,7 @@
 
     }
 }
+
 button {
   position: relative;
   outline: none;
