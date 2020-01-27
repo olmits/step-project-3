@@ -24,6 +24,7 @@
     "gulp-sass": "^4.0.2",
     "gulp-uglify": "^3.0.2",
     "gulp-uglify-es": "^2.0.0",
+    "mathsass": "^0.11.0",
     "node-sass": "^4.13.0"
   },
   "bugs": {
