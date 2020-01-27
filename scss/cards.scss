@@ -1,4 +1,10 @@
 @import 'variables';
+@import 'node_modules/mathsass/dist/_math.scss';
+
+$sqrt: 10px;
+// $lght: pow(3, 0.47) * $sqrt; // 30px - 50px
+$lght: 50/30 * $sqrt; // 30px - 50px
+$area: 160/30 * $sqrt;  // 30px - 160px
 
 .container {
     margin: auto;
@@ -10,27 +16,29 @@
         .container-item__header-logo {
             .logo {
                 .logo-animated {
-                    width: 160px;
-                    height: 160px;
+                    width: $area;
+                    height: $area;
+                    display: flex;
+                    
                     cursor: pointer;
                     position: relative;
                     margin: 10px auto;
                     .sq {
-                        width: 60px;
-                        height: 60px;
+                        width: $sqrt * 2;
+                        height: $sqrt * 2;
                         background: #94c5ee;
                         position: absolute;
-                        left: 50px;
-                        top: 50px;
+                        left: $lght;
+                        top: $lght;
                     }
                     .s1 {
                         display: inline-block;
-                        border-left: 30px solid transparent;
-                        border-right: 30px solid transparent;
+                        border-left: $sqrt solid transparent;
+                        border-right: $sqrt solid transparent;
                         border-top: 0 solid transparent;
-                        border-bottom: 50px solid #94c5ee;
+                        border-bottom: $lght solid #94c5ee;
                         position: absolute;
-                        left: 50px;
+                        left: $lght;
                         @include transform(translateY(-10px));
                         @include transform-origin(50% 100%);
                         @include transition (all 1s ease-in-out);
@@ -38,39 +46,39 @@
                     }
                     .s2 {
                         display: inline-block;
-                        border-left: 30px solid transparent;
-                        border-right: 30px solid transparent;
-                        border-top: 50px solid #94c5ee;
+                        border-left: $sqrt solid transparent;
+                        border-right: $sqrt solid transparent;
+                        border-top: $lght solid #94c5ee;
                         border-bottom: 0 solid transparent;
                         position: absolute;
                         bottom: 0;
                         @include transform( translateY(10px) );
                         @include transform-origin( 50% 0 );
                         @include transition ( all 1s ease-in-out );
-                        left: 50px;
+                        left: $lght;
                     }
                     .s3 {
                         display: inline-block;
                         border-left: 0 solid transparent;
-                        border-right: 50px solid #94c5ee;
-                        border-top: 30px solid transparent;
-                        border-bottom: 30px solid transparent;
+                        border-right: $lght solid #94c5ee;
+                        border-top: $sqrt solid transparent;
+                        border-bottom: $sqrt solid transparent;
                         position: absolute;
                         left: 0;
-                        top: 50px;
+                        top: $lght;
                         @include transform( translateX(-10px) );
                         @include transform-origin( 100% 50% );
                         @include transition ( all 1s ease-in-out );
                     }
                     .s4 {
                         display: inline-block;
-                        border-left: 50px solid #94c5ee;
+                        border-left: $lght solid #94c5ee;
                         border-right: 0 solid transparent;
-                        border-top: 30px solid transparent;
-                        border-bottom: 30px solid transparent;
+                        border-top: $sqrt solid transparent;
+                        border-bottom: $sqrt solid transparent;
                         position: absolute;
                         right: 0;
-                        top: 50px;
+                        top: $lght;
                         @include transform( translateX(10px) );
                         @include transform-origin( 0 50% );
                         @include transition ( all 1s ease-in-out );
@@ -78,7 +86,7 @@
                     .text {
                         font-family: Helvetica, sans-serif;
                         position: absolute;
-                        left: 53%;
+                        left: 250%;
                         color: #7ba5c7;
                         text-transform: uppercase;
                         font-size: 1.2em;
@@ -95,9 +103,9 @@
                         perspective: 300px;
                         position: absolute;
                         left: 50%;
-                        width: 160px;
-                        height: 160px;
-                        margin-left: -80px;
+                        width: $area;
+                        height: $area;
+                        // margin-left: -80px;
                         @include transform-origin( center );
                         @include transform(rotateX(0deg));
                         @include transition ( all 1s ease-in-out );
@@ -116,7 +124,7 @@
                             }
                             .s4 {
                                 @include transform( translateX(0) rotateY(-126.87deg) );
-                                border-left: 50px solid #7ba5c7;
+                                border-left: $lght solid #7ba5c7;
                             }
                         }
                     .text {
