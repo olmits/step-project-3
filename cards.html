@@ -12,28 +12,46 @@
     <div class="container">  <!-- HERE's a MAIN container-->
         <header class="container-item__header">  <!-- HERE's a HEADER container-->
             <div class="container-item__header-logo">
-                <a class="logo" href="#"> 
-                    <!-- <img src="img/logo.png" alt="Healsi Inc." /> -->
+                <!-- HERE's an awesome LOGO -->
+                <a class="logo" href="#">  
                     <div class="logo-animated">
                         <div class="perspective">
-                          <div class="sq"></div>
-                          <div class="s1"></div>
-                          <div class="s2"></div>
-                          <div class="s3"></div>
-                          <div class="s4"></div>
+                            <div class="sq"></div>
+                            <div class="s1"></div>
+                            <div class="s2"></div>
+                            <div class="s3"></div>
+                            <div class="s4"></div>
                         </div>
                         <div class="text">HEALSI</div>
-                      </div>
+                    </div>
                 </a>
-            </div>  <!-- HERE's a LOGO-->
-            <button class="container-item__header-add-card">  <!-- HERE's a BUTTON to add a CARD-->
+            </div>
+            <!-- HERE's a BUTTON to trigger a MODAL -->
+            <button class="container-item__header-add-card">  
                 <span>Shedule</span>
             </button>
         </header> 
+        
         <section class="container-item__board">  <!-- HERE's a BOARD where's all magic happens -->
             <div class="container-item__board-space"></div>
         </section> 
+        <!-- The Modal -->
+        <div class="container-item__modal">
+            <div class="container-item__modal-content">
+                <span class="container-item__modal-close">&times;</span>
+                <form action="" method="post" class="container-item__modal-form">
+                    <select name="doctors" id="doctor-select" class="container-item__modal-form-select" required>
+                        <option value="">--Please select a Doctor--</option>
+                        <option value="therapist">Therapist</option>
+                        <option value="cardiologist">Сardiologist</option>
+                        <option value="dentist">Dentist</option>
+                    </select>
+                </form>
+            </div>
+        </div>
     </div>
-    <script src="js/cards.js"></script>
+
+
+    <script type="module" src="js/cards.js"></script>
 </body>
 </html>

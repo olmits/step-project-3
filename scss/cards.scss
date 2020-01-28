@@ -2,7 +2,6 @@
 @import 'node_modules/mathsass/dist/_math.scss';
 
 $sqrt: 10px;
-// $lght: pow(3, 0.47) * $sqrt; // 30px - 50px
 $lght: 50/30 * $sqrt; // 30px - 50px
 $area: 160/30 * $sqrt;  // 30px - 160px
 
@@ -26,7 +25,7 @@ $area: 160/30 * $sqrt;  // 30px - 160px
                     .sq {
                         width: $sqrt * 2;
                         height: $sqrt * 2;
-                        background: #94c5ee;
+                        background: $color-theme-2;
                         position: absolute;
                         left: $lght;
                         top: $lght;
@@ -36,7 +35,7 @@ $area: 160/30 * $sqrt;  // 30px - 160px
                         border-left: $sqrt solid transparent;
                         border-right: $sqrt solid transparent;
                         border-top: 0 solid transparent;
-                        border-bottom: $lght solid #94c5ee;
+                        border-bottom: $lght solid $color-theme-2;
                         position: absolute;
                         left: $lght;
                         @include transform(translateY(-10px));
@@ -48,7 +47,7 @@ $area: 160/30 * $sqrt;  // 30px - 160px
                         display: inline-block;
                         border-left: $sqrt solid transparent;
                         border-right: $sqrt solid transparent;
-                        border-top: $lght solid #94c5ee;
+                        border-top: $lght solid $color-theme-2;
                         border-bottom: 0 solid transparent;
                         position: absolute;
                         bottom: 0;
@@ -60,7 +59,7 @@ $area: 160/30 * $sqrt;  // 30px - 160px
                     .s3 {
                         display: inline-block;
                         border-left: 0 solid transparent;
-                        border-right: $lght solid #94c5ee;
+                        border-right: $lght solid $color-theme-2;
                         border-top: $sqrt solid transparent;
                         border-bottom: $sqrt solid transparent;
                         position: absolute;
@@ -72,7 +71,7 @@ $area: 160/30 * $sqrt;  // 30px - 160px
                     }
                     .s4 {
                         display: inline-block;
-                        border-left: $lght solid #94c5ee;
+                        border-left: $lght solid $color-theme-2;
                         border-right: 0 solid transparent;
                         border-top: $sqrt solid transparent;
                         border-bottom: $sqrt solid transparent;
@@ -87,7 +86,7 @@ $area: 160/30 * $sqrt;  // 30px - 160px
                         font-family: Helvetica, sans-serif;
                         position: absolute;
                         left: 250%;
-                        color: #7ba5c7;
+                        color: $color-theme-3;
                         text-transform: uppercase;
                         font-size: 1.2em;
                         letter-spacing: 6px;
@@ -124,7 +123,7 @@ $area: 160/30 * $sqrt;  // 30px - 160px
                             }
                             .s4 {
                                 @include transform( translateX(0) rotateY(-126.87deg) );
-                                border-left: $lght solid #7ba5c7;
+                                border-left: $lght solid $color-theme-3;
                             }
                         }
                     .text {
@@ -157,7 +156,40 @@ $area: 160/30 * $sqrt;  // 30px - 160px
             border: 1px solid $color-theme-1;
             border-radius: 2px;
         }
-
+        
+    }
+    .container-item__modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        padding: 50px 0 0 0;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.4);
+        .container-item__modal-content {
+            position: relative;
+            background-color: #ffffff;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid $color-theme-1;
+            .container-item__modal-close {
+                color: $color-theme-1;
+                position: absolute;
+                top: 3px;
+                right: 7px;
+                font-size: 28px;
+                cursor: pointer;
+                font-weight: bold;
+                &:hover,
+                &:focus {
+                    color: $color-theme-3;
+                    text-decoration: none;
+                }
+            }
+        }
     }
 }
 
@@ -219,6 +251,11 @@ button {
 @media screen and (max-width: 767px) {
     .container {
         width: 90%;
+        .container-item__modal {
+            .container-item__modal-content {
+                width: 70%;
+            }
+        }
         .container-item__board {
             .container-item__board-space {
                 min-height: 200px;
@@ -229,6 +266,11 @@ button {
 @media screen and (min-width: 768px) and (max-width: 1199px) {
     .container {
         width: 80%;
+        .container-item__modal {
+            .container-item__modal-content {
+                width: 50%;
+            }
+        }
         .container-item__board {
             .container-item__board-space {
                 min-height: 300px;
@@ -239,6 +281,11 @@ button {
 @media screen and (min-width: 1200px) {
     .container {
         width: 60%;
+        .container-item__modal {
+            .container-item__modal-content {
+                width: 40%;
+            }
+        }
         .container-item__board {
             .container-item__board-space {
                 min-height: 400px;
