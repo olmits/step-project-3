@@ -1,4 +1,4 @@
-class RequestHelper {
+export class RequestHelper {
 
     // Get all or one card, delete card
    static async getOrDelData(method, url, token) {
@@ -18,11 +18,11 @@ class RequestHelper {
             method: method,
             headers: {
                 'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json;charset=utf-8'
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(obj)
         }).then((response) => response.json());
     }
 }
 
-export default RequestHelper;
+// export default RequestHelper;
