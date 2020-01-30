@@ -9,6 +9,7 @@
     <title>Helsi - Sheduler</title>
 </head>
 <body>
+    
     <div class="container">  <!-- HERE's a MAIN container-->
         <header class="container-item__header">  <!-- HERE's a HEADER container-->
             <div class="container-item__header-logo">
@@ -39,13 +40,17 @@
         <div class="container-item__modal">
             <div class="container-item__modal-content">
                 <span class="container-item__modal-close">&times;</span>
-                <form action="" method="post" class="container-item__modal-form">
-                    <select name="doctors" id="doctor-select" class="container-item__modal-form-select" required>
-                        <option value="">--Please select a Doctor--</option>
-                        <option value="therapist">Therapist</option>
-                        <option value="cardiologist">Сardiologist</option>
-                        <option value="dentist">Dentist</option>
-                    </select>
+                <form action="" method="post" class="container-item__modal-form" data-medicine-type="">
+                    <fieldset class="doctor-select-field">
+                        <select name="doctors" id="doctor-select" class="container-item__modal-form-select" required>
+                            <option value="">--Please select a Doctor--</option>
+                            <option value="therapist">Therapist</option>
+                            <option value="cardiologist">Сardiologist</option>
+                            <option value="dentist">Dentist</option>
+                        </select>
+                    </fieldset>
+                    <fieldset class="patient-info-field"></fieldset>
+                    <textarea name="addtional-info" maxlength="400" rows="7" class="container-item__modal-form-textarea"></textarea>
                 </form>
             </div>
         </div>
