@@ -17,7 +17,6 @@ const userCredentials = {
         comment: "user comment"
     }
 };
-//userCredentials.id = 5687;
 
 export class Auth {
     async loginUser(email, password) {
@@ -80,8 +79,8 @@ async function init() {
     // await console.log('GET_CARD',respGetCard);
     // const respPostCard = await test.createCard(userCredentials);
     // await console.log('POST_CARD',respPostCard);
-    const respPutCard = await test.updateCard(userCredentials, 3411);
-    await console.log('PUT_CARD',respPutCard);
+    // const respPutCard = await test.updateCard(userCredentials, 3411);
+    // await console.log('PUT_CARD',respPutCard);
     // const respDeleteCard = await test.deleteCard(3412);
     // await console.log('DELETE_CARD',respDeleteCard);
 }
