@@ -1,3 +1,4 @@
+@import 'node_modules/roboto-fontface/css/roboto/sass/roboto-fontface.scss';
 @import 'variables';
 @import 'node_modules/mathsass/dist/_math.scss';
 
@@ -5,7 +6,20 @@ $sqrt: 10px;
 $lght: 50/30 * $sqrt; // 30px - 50px
 $area: 160/30 * $sqrt;  // 30px - 160px
 
+button {
+    position: relative;
+    outline: none;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    text-transform: uppercase;
+    opacity: 1;
+}
+
 .container {
+    font-family: 'Roboto', sans-serif;
     margin: auto;
     .container-item__header {
         margin: 40px 0 10px 0;
@@ -104,7 +118,6 @@ $area: 160/30 * $sqrt;  // 30px - 160px
                         left: 50%;
                         width: $area;
                         height: $area;
-                        // margin-left: -80px;
                         @include transform-origin( center );
                         @include transform(rotateX(0deg));
                         @include transition ( all 1s ease-in-out );
@@ -137,8 +150,16 @@ $area: 160/30 * $sqrt;  // 30px - 160px
         .container-item__header-add-card {
             background-color: $color-theme-2;
             border: 1px solid $color-theme-1;
+            border-radius: 50px;
             height: 40px;
             width: 100px;
+            &:hover {
+                animation: rotate 0.7s ease-in-out both;
+                span {
+                    animation: storm 0.7s ease-in-out both;
+                    animation-delay: 0.06s;
+                }
+            }
             span {
                 color: $color-theme-1;
                 font-size: 12px;
@@ -189,29 +210,30 @@ $area: 160/30 * $sqrt;  // 30px - 160px
                     text-decoration: none;
                 }
             }
+            .container-item__modal-form {
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                margin: 10px 0 0 0;
+                * {
+                    font-family: 'Roboto', sans-serif;
+                    margin: 0 0 5px 0;
+                    width: 100%;
+                }
+                .patient-info-field {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: stretch;
+                }
+                .container-item__modal-form-submit {
+                    content: "submit";
+                    align-self: flex-end;
+                }
+            }
         }
     }
 }
 
-button {
-  position: relative;
-  outline: none;
-  text-decoration: none;
-  border-radius: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  text-transform: uppercase;
-  opacity: 1;
-&:hover {
-    animation: rotate 0.7s ease-in-out both;
-    span {
-        animation: storm 0.7s ease-in-out both;
-        animation-delay: 0.06s;
-    }
-  }
-}
 
 @keyframes rotate {
     0% {
