@@ -36,8 +36,8 @@ export class VisitCards {
         cardContainer.setAttribute('id', card.id);
         cardContainer.innerHTML = `
     <button class="card-wrapper_btn card-wrapper_btn-delete" data-btn-id=${card.id}>X</button>
-    <div class="card-wrapper_visitor-name">${card.content.name}</div>
-    <div class="card-wrapper_doctor-for-visit">${card.doctor}</div>
+    <div class="card-wrapper_text-field card-wrapper_visitor-name">${card.content.name}</div>
+    <div class="card-wrapper_text-field card-wrapper_doctor-for-visit">${card.doctor}</div>
     <button class="card-wrapper_btn card-wrapper_btn-show-more" data-btn-id=${card.id}>Показать больше</button>
     `;
         container.append(cardContainer);

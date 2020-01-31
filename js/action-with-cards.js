@@ -2,13 +2,13 @@ import {RequestHelper} from "./request-helper.js";
 import {LocalStorageHelper} from "./local-storage-helper.js";
 
 const userCredentials = {
-    doctor: "Cardiolog4",
-    title: "Цель визита2q",
+    doctor: "Cardiolog555 ghjkbnmk;l ghvjjk;l",
+    title: "Цель визита2q  ghjlkk",
     description: "Краткое описание визита",
     status: "open",
     priority: "Приоритет",
     content: {
-        name: "Ivan",
+        name: "Ivan vjhbkhbkhbh bjhbhjbjhbjhbjbjh",
         bp: "24",
         age: 23,
         weight: 70,
@@ -78,8 +78,8 @@ async function init() {
     // await console.log('GET_ALL_CARDS', respGetCards);
     // const respGetCard = await test.getCard(3148);
     // await console.log('GET_CARD',respGetCard);
-   // const respPostCard = await test.createCard(userCredentials);
-    //await console.log('POST_CARD',respPostCard);
+    //const respPostCard = await test.createCard(userCredentials);
+   //  await console.log('POST_CARD',respPostCard);
     // const respPutCard = await test.updateCard(userCredentials, 3411);
     // await console.log('PUT_CARD',respPutCard);
     // const respDeleteCard = await test.deleteCard(3501);
