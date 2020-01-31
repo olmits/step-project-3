@@ -5,17 +5,13 @@ export class VisitCards {
     requestActionWithCards;
     storageHelper;
 
-    constructor() {
-        this.init();
-    }
-
     async init() {
         this.storageHelper = new LocalStorageHelper();
         const auth = new Auth();
         const token = await auth.loginUser("test321@gmail.com", "Testuser!");
         this.requestActionWithCards = new ActionWithCards(token);
-        this._renderCards();
-        this._addListenerToRemoveCard();
+        await this._renderCards();
+        await this._addListenerToRemoveCard();
     }
 
     async _renderCards() {
@@ -64,5 +60,10 @@ export class VisitCards {
     }
  }
 
- new VisitCards();
+ async function init() {
+     const start = new VisitCards();
+     await start.init();
+ }
+
+ init();
 
