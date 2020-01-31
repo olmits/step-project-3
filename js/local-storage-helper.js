@@ -1,6 +1,10 @@
 export class LocalStorageHelper {
 
-     getDataFromStorage(cardsArr) {
+     getDataFromLC() {
+          return JSON.parse(localStorage.getItem('cards'));
+     }
+
+     getDataAdnSetInStorage(cardsArr) {
          localStorage.setItem('cards', JSON.stringify(cardsArr));
      }
 
@@ -24,7 +28,8 @@ export class LocalStorageHelper {
 
      deleteItemFromStorage(cardID) {
           const cardsArr = JSON.parse(localStorage.getItem('cards'));
-          const newArr = cardsArr.filter(card => parseInt(card.id) !== cardID);
+          const newArr = cardsArr.filter(card => {console.log('Remove from LS data', card.id, cardID, parseInt(card.id) !== cardID); return card.id !== cardID});
+          console.log('Remove from LS', newArr);
           localStorage.setItem('cards', JSON.stringify(newArr));
      }
 }
