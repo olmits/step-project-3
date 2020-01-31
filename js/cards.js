@@ -22,6 +22,8 @@ class Modal {
         this.form = form;
         this.closeBtn = closeBtn;
         this.formSelector = formSelector;
+        this.patientField = this.form.querySelector('.patient-info-field');
+        this.submitBtn = this.form.querySelector('.container-item__modal-form-submit')
     }
 
     openModal = () => {
@@ -32,47 +34,55 @@ class Modal {
     closeModal = (t, event) => {
         if (event.target == t) {
             this.modal.style.display = "none";
-            this.form.dataset.medicineType =""
-            this.form.reset();
+            this._resetModalForm();
             this._removeListeners();
         }
     }
+
+    proceedSubmit() {
+        this.submitBtn.addEventListener('click',)
+    }
     proceedSelect = (event) => {
-        this.submitBtn = document.createElement('button');
-        this.submitBtn.classList.add('container-item__modal-form-submit');
-        this.submitBtn.setAttribute('type', 'submit');
-        
-        event.target.querySelector('option[value=""]').setAttribute('disabled', 'disabled');
+        this.formSelector.querySelector('option[value=""]').disabled = true;
         this.form.dataset.medicineType = event.target.value;
         
-        this.patientField = this.form.querySelector('.patient-info-field')
         this.patientField.innerHTML = "";
-        this.patientField.append(this._createPatientInput('purpose', 'text', 'container-item__modal-form-purpose'))
+        this.patientField.append(this._createPatientInput('patient-name', 'text', 'container-item__modal-form-name'));
+        this.patientField.append(this._createPatientInput('visit-purpose', 'text', 'container-item__modal-form-purpose'));
 
         switch (event.target.value) {
             case 'therapist':
-
-                this.patientField.append(this._createPatientInput('age', 'number', 'container-item__modal-form-age'))
+                this.patientField.append(this._createPatientInput('patient-age', 'number', 'container-item__modal-form-age'));
                 break;
             case 'cardiologist':
-                this.patientField.append(this._createPatientInput('name', 'text', 'container-item__modal-form-name'))
+                this.patientField.append(this._createPatientInput('blood-pressure', 'text', 'container-item__modal-form-bp'));
+                this.patientField.append(this._createPatientInput('body-mass-index', 'text', 'container-item__modal-form-bmi'));
+                this.patientField.append(this._createPatientInput('past-medical-history', 'text', 'container-item__modal-form-pmh'));
+                this.patientField.append(this._createPatientInput('patient-age', 'number', 'container-item__modal-form-age'));
                 break;
             case 'dentist':
-                this.patientField.append(this._createPatientInput('last-visit', 'date', 'container-item__modal-form-date'))
+                this.patientField.append(this._createPatientInput('last-visit', 'date', 'container-item__modal-form-date'));
                 break;
         }
     }
     _createPatientInput(name, type, className) {
         let patientInput = document.createElement('input');
+
         patientInput.className = className
         patientInput.setAttribute('name', name);
         patientInput.setAttribute('type', type);
-        patientInput.setAttribute('placeholder', name.toUpperCase());
-        patientInput.setAttribute('required', 'required');
+        patientInput.setAttribute('placeholder', name[0].toUpperCase() + name.substring(1).toLowerCase().replace('-', ' '));
+        patientInput.required= true
 
         return patientInput
     }
 
+    _resetModalForm() {
+        this.formSelector.querySelector('option[value=""]').disabled = false;
+        this.patientField.innerHTML = "";
+        this.form.dataset.medicineType ="";
+        this.form.reset();
+    }
     _handleModalClosing() {
         this.closeModalButton = this.closeModal.bind(this, this.closeBtn)
         this.closeBtn.addEventListener('click', this.closeModalButton);
