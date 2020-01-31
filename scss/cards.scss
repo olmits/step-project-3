@@ -233,6 +233,46 @@ button {
         }
     }
 }
+.container-item__board-space {
+    display: flex;
+    flex-wrap: wrap;
+    .empty-state-wrapper {
+        align-self: center;
+        margin: 0 auto;
+        display: block;
+    }
+}
+.card-wrapper {
+    border: 1px solid darkcyan;
+    margin: 5px;
+    height: 100px;
+   // width: 100px;
+    display: flex;
+    flex-direction: column;
+
+    &_btn{
+        border-radius: 3px;
+    }
+    &_btn-delete{
+        background-color: lightcoral;
+        align-self: flex-end;
+    }
+    &_btn-show-more{
+        font-size: 12px;
+        background-color: #99ddff;
+        margin-top: 5px;
+    }
+    &_visitor-name{
+        //margin-right: 5px;
+        //margin-bottom: 5px;
+        padding-left: 5px;
+        padding-bottom: 5px;
+    }
+    &_doctor-for-visit{
+        margin-left: 5px;
+        margin-bottom: 5px;
+    }
+}
 
 
 @keyframes rotate {
