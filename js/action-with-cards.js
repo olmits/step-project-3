@@ -1,20 +1,34 @@
 import {RequestHelper} from "./request-helper.js";
 import {LocalStorageHelper} from "./local-storage-helper.js";
 
-const userCredentials = {
-    doctor: "Cardiolog555 ghjkbnmk;l ghvjjk;l",
-    title: "Цель визита2q  ghjlkk",
-    description: "Краткое описание визита",
-    status: "open",
-    priority: "Приоритет",
+const cardiologist = {
+    doctor: "Cardiolog",
+    title: "textarea Цель визита",
     content: {
         name: "Ivan vjhbkhbkhbh bjhbhjbjhbjhbjbjh",
+        date: "01.02.2020",
         bp: "24",
         age: 23,
         weight: 70,
         heartIllness: false,
+    }
+};
+const therapist = {
+    doctor: "Cardiolog555 ghjkbnmk;l ghvjjk;l",
+    title: "textarea Цель визита",
+    content: {
+        name: "Ivan vjhbkhbkhbh bjhbhjbjhbjhbjbjh",
         date: "01.02.2020",
-        comment: "user comment"
+        age: 23,
+    }
+};
+const dantist = {
+    doctor: "Cardiolog555 ghjkbnmk;l ghvjjk;l",
+    title: "textarea Цель визита",
+    content: {
+        name: "Ivan vjhbkhbkhbh bjhbhjbjhbjhbjbjh",
+        date: "01.02.2020",
+        dateOfLastVisit: "24",
     }
 };
 
@@ -78,9 +92,9 @@ async function init() {
     // await console.log('GET_ALL_CARDS', respGetCards);
     // const respGetCard = await test.getCard(3148);
     // await console.log('GET_CARD',respGetCard);
-    //const respPostCard = await test.createCard(userCredentials);
+    //const respPostCard = await test.createCard(cardiologist);
    //  await console.log('POST_CARD',respPostCard);
-    // const respPutCard = await test.updateCard(userCredentials, 3411);
+    // const respPutCard = await test.updateCard(cardiologist, 3411);
     // await console.log('PUT_CARD',respPutCard);
     // const respDeleteCard = await test.deleteCard(3501);
     // await console.log('DELETE_CARD',respDeleteCard);
