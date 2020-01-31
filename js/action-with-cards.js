@@ -2,17 +2,17 @@ import {RequestHelper} from "./request-helper.js";
 import {LocalStorageHelper} from "./local-storage-helper.js";
 
 const userCredentials = {
-    doctor: "doctor76879798",
+    doctor: "Cardiolog4",
     title: "Цель визита2q",
     description: "Краткое описание визита",
     status: "open",
     priority: "Приоритет",
     content: {
+        name: "Ivan",
         bp: "24",
         age: 23,
         weight: 70,
         heartIllness: false,
-        name: "value",
         date: "01.02.2020",
         comment: "user comment"
     }
@@ -30,7 +30,7 @@ export class Auth {
     }
 }
 
-class ActionWithCards {
+export class ActionWithCards {
     storageHelper = new LocalStorageHelper();
     constructor(token) {
         this.userToken = token;
@@ -38,7 +38,7 @@ class ActionWithCards {
 
     async getCards() {
         const resp = await RequestHelper.getOrDelData('GET', 'http://cards.danit.com.ua/cards', this.userToken);
-        await this.storageHelper.getDataFromStorage(resp);
+        await this.storageHelper.getDataAdnSetInStorage(resp);
         return resp
     }
 
@@ -50,6 +50,7 @@ class ActionWithCards {
         const resp = await RequestHelper.getOrDelData('DELETE', `http://cards.danit.com.ua/cards/${cardID}`, this.userToken);
         await this.storageHelper.deleteItemFromStorage(cardID);
 
+        await console.log('resprespresp', resp);
         return resp
     }
 
@@ -73,15 +74,15 @@ async function init() {
     const auth = new Auth();
     const token = await auth.loginUser("test321@gmail.com", "Testuser!");
     const test = new ActionWithCards(token);
-    const respGetCards = await test.getCards();
-    await console.log('GET_ALL_CARDS', respGetCards);
+    // const respGetCards = await test.getCards();
+    // await console.log('GET_ALL_CARDS', respGetCards);
     // const respGetCard = await test.getCard(3148);
     // await console.log('GET_CARD',respGetCard);
-    // const respPostCard = await test.createCard(userCredentials);
-    // await console.log('POST_CARD',respPostCard);
+   // const respPostCard = await test.createCard(userCredentials);
+    //await console.log('POST_CARD',respPostCard);
     // const respPutCard = await test.updateCard(userCredentials, 3411);
     // await console.log('PUT_CARD',respPutCard);
-    // const respDeleteCard = await test.deleteCard(3412);
+    // const respDeleteCard = await test.deleteCard(3501);
     // await console.log('DELETE_CARD',respDeleteCard);
 }
 
