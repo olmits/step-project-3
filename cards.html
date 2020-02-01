@@ -45,9 +45,9 @@
         <div class="container-item__modal">
             <div class="container-item__modal-content">
                 <span class="container-item__modal-close">&times;</span>
-                <form action="" method="post" class="container-item__modal-form" data-medicine-type="">
+                <form name="visit" class="container-item__modal-form" data-medicine-type="">
                     <fieldset class="doctor-select-field">
-                        <select name="doctors" id="doctor-select" class="container-item__modal-form-select" required>
+                        <select name="doctor" id="doctor-select" class="container-item__modal-form-select" data-target="general-info" required>
                             <option value="">--Please select a Doctor--</option>
                             <option value="therapist">Therapist</option>
                             <option value="cardiologist">Сardiologist</option>
@@ -55,7 +55,8 @@
                         </select>
                     </fieldset>
                     <fieldset class="patient-info-field"></fieldset>
-                    <textarea name="addtional-info" maxlength="400" rows="7" class="container-item__modal-form-textarea"></textarea>
+                    <textarea name="desription" maxlength="400" rows="7" class="container-item__modal-form-textarea" data-target="general-info"></textarea>
+                    <!-- <button type="submit" class="container-item__modal-form-submit">Submit</button> -->
                     <button type="submit" class="container-item__modal-form-submit">Submit</button>
                 </form>
             </div>
