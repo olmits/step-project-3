@@ -1,7 +1,5 @@
-import Visit from './visit.js';
+import {Visit} from './visit.js';
 
-class VisitTherapist extends Visit {
+export class VisitTherapist extends Visit {
 
 }
-
-export default VisitTherapist;

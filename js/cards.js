@@ -1,28 +1,28 @@
-import VisitTherapist from './visit-therapist.js';
-import VisitСardiologist from './visit-cardiologist.js';
-import VisitDentist from './visit-dentist.js';
+import {VisitTherapist} from './visit-therapist.js';
+import {VisitСardiologist} from './visit-cardiologist.js';
+import {VisitDentist} from './visit-dentist.js';
 
 const addCard = document.querySelector('.container-item__header-add-card');
-
 const cardModal = document.querySelector('.container-item__modal');
 const cardForm = document.querySelector('.container-item__modal-form');
 const cardCloseBtn = document.querySelector('.container-item__modal-close');
 const cardFormSelect = document.querySelector('.container-item__modal-form-select');
+const cardPatientField = document.querySelector('.patient-info-field');
 
 addCard.addEventListener('click', () => {
-    const modalProcessing = new Modal(cardModal, cardForm, cardCloseBtn, cardFormSelect);
+    const modalProcessing = new Modal(cardModal, cardForm, cardCloseBtn, cardFormSelect, cardPatientField);
     modalProcessing.openModal()
 });
 
 
 class Modal {
 
-    constructor(modal, form, closeBtn, formSelector) {
+    constructor(modal, form, closeBtn, formSelector, patientField) {
         this.modal = modal;
         this.form = form;
         this.closeBtn = closeBtn;
         this.formSelector = formSelector;
-        this.patientField = this.form.querySelector('.patient-info-field');
+        this.patientField = patientField;
     }
 
     openModal = () => {

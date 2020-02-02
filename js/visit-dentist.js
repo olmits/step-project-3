@@ -1,8 +1,10 @@
-import Visit from './visit.js';
+import {Visit} from './visit.js';
 
-class VisitDentist extends Visit {
+export class VisitDentist extends Visit {
 
+    constructor() {
+        super()
+        
+    }
 
 }
-
-export default VisitDentist;
