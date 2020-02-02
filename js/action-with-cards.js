@@ -92,8 +92,8 @@ async function init() {
     // await console.log('GET_ALL_CARDS', respGetCards);
     // const respGetCard = await test.getCard(3148);
     // await console.log('GET_CARD',respGetCard);
-    const respPostCard = await test.createCard(cardiologist);
-    await console.log('POST_CARD',respPostCard);
+    // const respPostCard = await test.createCard(cardiologist);
+    // await console.log('POST_CARD',respPostCard);
     // const respPutCard = await test.updateCard(cardiologist, 3411);
     // await console.log('PUT_CARD',respPutCard);
     // const respDeleteCard = await test.deleteCard(3501);

@@ -40,6 +40,10 @@ class Modal {
     }
     
     _formToJSON() {
+        /**
+         * TODO: Remove this method
+         * transforming to JSON is NOT required
+         */
         let data = {content: {}};
         for (let index = 0; index < this.form.elements.length; index++) {
             let el = this.form.elements[index]
@@ -50,11 +54,22 @@ class Modal {
     }
     proceedSubmit(event) {
         event.preventDefault();
-        let userData = this._formToJSON();
-        console.log(userData);
-        
-        let userDataJson = JSON.stringify(userData);
-        console.log(userDataJson);
+        /**
+         * TODO: Refactor this method - pass data values directly to Visit Class
+         * transforming to JSON is NOT required
+         */
+
+        let userData = new FormData(this.form);
+        userData = Object.fromEntries(userData);
+        if (userData.doctor === 'dentist') {
+            let newVisit = new VisitDentist(
+                userData["title"], 
+                userData["current-visit-date"], 
+                userData["name"], 
+                userData["last-visit-date"],
+                userData["desription"]);
+            newVisit.init();
+        }
         
         
     }
@@ -64,22 +79,21 @@ class Modal {
         
         this.patientField.innerHTML = "";
         this.patientField.append(this._createPatientInput('title', 'text', 'general-info'));
+        this.patientField.append(this._createPatientInput('name', 'text', 'user-content'));
+        this.patientField.append(this._createPatientInput('current-visit-date', 'date', 'user-content'));
         
         switch (event.target.value) {
             case 'therapist':
-                this.patientField.append(this._createPatientInput('patient-name', 'text', 'user-content'));
                 this.patientField.append(this._createPatientInput('age', 'text', 'user-content'));
                 break;
             case 'cardiologist':
-                this.patientField.append(this._createPatientInput('patient-name', 'text', 'user-content'));
                 this.patientField.append(this._createPatientInput('bp', 'text', 'user-content'));
                 this.patientField.append(this._createPatientInput('weight', 'text', 'user-content'));
                 this.patientField.append(this._createPatientInput('heartIllness', 'text', 'user-content'));
                 this.patientField.append(this._createPatientInput('age', 'text', 'user-content'));
                 break;
             case 'dentist':
-                this.patientField.append(this._createPatientInput('patient-name', 'text', 'user-content'));
-                this.patientField.append(this._createPatientInput('dateOfLastVisit', 'text', 'user-content'));
+                this.patientField.append(this._createPatientInput('last-visit-date', 'date', 'user-content'));
                 break;
             }
     }
@@ -90,7 +104,7 @@ class Modal {
         patientInput.setAttribute('name', name);
         patientInput.setAttribute('type', type);
         patientInput.setAttribute('placeholder', name[0].toUpperCase() + name.substring(1).toLowerCase().replace('-', ' '));
-        patientInput.value = name
+        (type === 'date' ? patientInput.value = "2020-01-01" : patientInput.value = name)
         patientInput.required= true
 
         return patientInput
