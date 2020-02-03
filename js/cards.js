@@ -7,7 +7,9 @@ const cardModal = document.querySelector('.container-item__modal');
 const cardForm = document.querySelector('.container-item__modal-form');
 const cardCloseBtn = document.querySelector('.container-item__modal-close');
 const cardFormSelect = document.querySelector('.container-item__modal-form-select');
+const cardFormSubmitBtn = document.querySelector('.container-item__modal-form-submit');
 const cardPatientField = document.querySelector('.patient-info-field');
+const mainContainer = document.querySelector('.container-item__board-space');
 
 addCard.addEventListener('click', () => {
     const modalProcessing = new Modal(cardModal, cardForm, cardCloseBtn, cardFormSelect, cardPatientField);
@@ -17,10 +19,13 @@ addCard.addEventListener('click', () => {
 
 class Modal {
 
+    newVisit = null;
+
     constructor(modal, form, closeBtn, formSelector, patientField) {
         this.modal = modal;
         this.form = form;
         this.closeBtn = closeBtn;
+        this.submitBtn = cardFormSubmitBtn;
         this.formSelector = formSelector;
         this.patientField = patientField;
     }
@@ -33,46 +38,50 @@ class Modal {
     }
     closeModal = (t, event) => {
         if (event.target == t) {
-            this.modal.style.display = "none";
-            this._resetModalForm();
-            this._removeListeners();
+            this._closeModalFunction();
         }
+    }
+    _closeModalFunction() {
+        this.modal.style.display = "none";
+        this._resetModalForm();
+        this._removeListeners();
     }
     
-    _formToJSON() {
-        /**
-         * TODO: Remove this method
-         * transforming to JSON is NOT required
-         */
-        let data = {content: {}};
-        for (let index = 0; index < this.form.elements.length; index++) {
-            let el = this.form.elements[index]
-            if (!('target' in el.dataset)) continue
-            (el.dataset.target === 'general-info' ? data[el.name] = el.value : data.content[el.name] = el.value);
-        }
-        return data;
-    }
-    proceedSubmit(event) {
+    async proceedSubmit(event) {
         event.preventDefault();
-        /**
-         * TODO: Refactor this method - pass data values directly to Visit Class
-         * transforming to JSON is NOT required
-         */
 
         let userData = new FormData(this.form);
         userData = Object.fromEntries(userData);
         if (userData.doctor === 'dentist') {
-            let newVisit = new VisitDentist(
+            this.newVisit = new VisitDentist(
                 userData["title"], 
                 userData["current-visit-date"], 
                 userData["name"], 
                 userData["last-visit-date"],
-                userData["desription"]);
-            newVisit.init();
+                userData["desription"])
+        } else if (userData.doctor === 'therapist') {
+            this.newVisit = new VisitTherapist(
+                userData["title"], 
+                userData["current-visit-date"], 
+                userData["name"], 
+                userData["age"],
+                userData["desription"])
+        } else if (userData.doctor === 'cardiologist') {
+            this.newVisit = new VisitСardiologist(
+                userData["title"], 
+                userData["current-visit-date"], 
+                userData["name"], 
+                userData["bp"],
+                userData["age"],
+                userData["weight"],
+                userData["heartIllness"],
+                userData["desription"]
+            )
         }
-        
-        
-    }
+        await this.newVisit.init();
+        this.newVisit.appendTo(mainContainer);
+        this._closeModalFunction();
+    };
     proceedSelect = (event) => {
         this.formSelector.querySelector('option[value=""]').disabled = true;
         this.form.dataset.medicineType = event.target.value;
