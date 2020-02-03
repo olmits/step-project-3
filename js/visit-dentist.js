@@ -16,12 +16,10 @@ export class VisitDentist extends Visit {
                 dateOfLastVisit: this._ldate
             }
         }
-        // this.init();
-        
     }
     async init() {
         await super.init()
-        this._postData(this._obj);
+        await this._postData(this._obj);
     }
 
 }

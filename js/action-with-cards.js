@@ -1,36 +1,36 @@
 import {RequestHelper} from "./request-helper.js";
 import {LocalStorageHelper} from "./local-storage-helper.js";
 
-// const cardiologist = {
-//     doctor: "Cardiolog",
-//     title: "textarea Цель визита",
-//     content: {
-//         name: "Ivan vjhbkhbkhbh bjhbhjbjhbjhbjbjh",
-//         date: "01.02.2020",
-//         bp: "24",
-//         age: 23,
-//         weight: 70,
-//         heartIllness: false,
-//     }
-// };
-// const therapist = {
-//     doctor: "Cardiolog555 ghjkbnmk;l ghvjjk;l",
-//     title: "textarea Цель визита",
-//     content: {
-//         name: "Ivan vjhbkhbkhbh bjhbhjbjhbjhbjbjh",
-//         date: "01.02.2020",
-//         age: 23,
-//     }
-// };
-// const dantist = {
-//     doctor: "Cardiolog555 ghjkbnmk;l ghvjjk;l",
-//     title: "textarea Цель визита",
-//     content: {
-//         name: "Ivan vjhbkhbkhbh bjhbhjbjhbjhbjbjh",
-//         date: "01.02.2020",
-//         dateOfLastVisit: "24.01.2020",
-//     }
-// };
+const cardiologist = {
+    doctor: "Cardiolog",
+    title: "textarea Цель визита",
+    content: {
+        name: "Ivan vjhbkhbkhbh bjhbhjbjhbjhbjbjh",
+        date: "01.02.2020",
+        bp: "24",
+        age: 23,
+        weight: 70,
+        heartIllness: false,
+    }
+};
+const therapist = {
+    doctor: "Cardiolog555 ghjkbnmk;l ghvjjk;l",
+    title: "textarea Цель визита",
+    content: {
+        name: "Ivan vjhbkhbkhbh bjhbhjbjhbjhbjbjh",
+        date: "01.02.2020",
+        age: 23,
+    }
+};
+const dantist = {
+    doctor: "Cardiolog555 ghjkbnmk;l ghvjjk;l",
+    title: "textarea Цель визита",
+    content: {
+        name: "Ivan vjhbkhbkhbh bjhbhjbjhbjhbjbjh",
+        date: "01.02.2020",
+        dateOfLastVisit: "24.01.2020",
+    }
+};
 
 export class Auth {
     async loginUser(email, password) {
@@ -57,7 +57,6 @@ export class ActionWithCards {
     }
 
     async getCard(cardID) {
-        await console.log('URL========', `http://cards.danit.com.ua/cards/${cardID}`);
         return await RequestHelper.getOrDelData('GET', `http://cards.danit.com.ua/cards/${cardID}`, this.userToken)
     }
 
@@ -89,10 +88,10 @@ async function init() {
     const auth = new Auth();
     const token = await auth.loginUser("test321@gmail.com", "Testuser!");
     const test = new ActionWithCards(token);
-    const respGetCards = await test.getCards();
-    await console.log('GET_ALL_CARDS', respGetCards);
-    const respGetCard = await test.getCard(3528);
-    await console.log('GET_CARD',respGetCard);
+    // const respGetCards = await test.getCards();
+    // await console.log('GET_ALL_CARDS', respGetCards);
+    // const respGetCard = await test.getCard(3148);
+    // await console.log('GET_CARD',respGetCard);
     // const respPostCard = await test.createCard(cardiologist);
     // await console.log('POST_CARD',respPostCard);
     // const respPutCard = await test.updateCard(cardiologist, 3411);

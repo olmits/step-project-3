@@ -13,21 +13,19 @@ export class Visit {
         const auth = new Auth();
         const token = await auth.loginUser("test321@gmail.com", "Testuser!");
         this.requestActionWithCards = new ActionWithCards(token);
-        console.log('1');
         
     }
     appendTo(parent){
-        parent.append(this.el);
+        parent.append(this._el);
     }
     async _postData(data) {
         // TODO: Trow error if not an object
         // TODO: Trow error in case of invalid data
         // TODO: Trow error in case of ERORR response
-        console.log(this.requestActionWithCards);
         
         this.postResponse = await this.requestActionWithCards.createCard(data)
         console.log('POST - Response: ', this.postResponse);
-        
+        this._createLayout(this.postResponse);
     }
     _createLayout(card){
         // TODO: Throw error if card isn't an Object
@@ -42,7 +40,8 @@ export class Visit {
             <div class="card-wrapper_text-field card-wrapper_doctor-for-visit">${card.doctor}</div>
             <button class="card-wrapper_btn card-wrapper_btn-show-more" data-btn-id=${card.id}>Показать больше</button>
             `;
-
+        console.log(1);
+        
         this._el = element;
     }
     
