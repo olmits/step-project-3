@@ -1,9 +1,12 @@
 import {LocalStorageHelper} from "./local-storage-helper.js";
 import {ActionWithCards, Auth} from "./action-with-cards.js";
+import {Shedule} from "./shedule-component.js"
 
-export class Visit {
+
+export class Visit extends Shedule {
     _el
     constructor(title, date, name){
+        super()
         this._title = title;
         this._date = date;
         this._name = name;
@@ -14,39 +17,61 @@ export class Visit {
         const token = await auth.loginUser("test321@gmail.com", "Testuser!");
         this.requestActionWithCards = new ActionWithCards(token);
         
-    }
-    appendTo(parent){
-        parent.append(this._el);
+        
     }
     async _postData(data) {
         // TODO: Trow error if not an object
         // TODO: Trow error in case of invalid data
         // TODO: Trow error in case of ERORR response
         
-        this.postResponse = await this.requestActionWithCards.createCard(data)
-        console.log('POST - Response: ', this.postResponse);
-        this._createLayout(this.postResponse);
-    }
-    _createLayout(card){
-        // TODO: Throw error if card isn't an Object
-        // TODO: Throw error if card doesn't contains properties
-        const element = document.createElement('div');
-        element.classList.add('card-wrapper');
-        element.setAttribute('id', card.id);
-        // TODO: Refactor innerHTML 
-        element.innerHTML = `
-            <button class="card-wrapper_btn card-wrapper_btn-delete" data-btn-id=${card.id}>X</button>
-            <div class="card-wrapper_text-field card-wrapper_visitor-name">${card.content.name}</div>
-            <div class="card-wrapper_text-field card-wrapper_doctor-for-visit">${card.doctor}</div>
-            <button class="card-wrapper_btn card-wrapper_btn-show-more" data-btn-id=${card.id}>Показать больше</button>
-            `;
-        console.log(1);
+        this._response = await this.requestActionWithCards.createCard(data)
+        console.log('POST - Response: ', this._response);
+        this.createLayout('div', {'class': 'card-wrapper', 'id': this._response.id}, this._response);
         
-        this._el = element;
     }
-    
-    destroy(){
+    createLayout(el, attrs, card){
+        super.createLayout(el, attrs);
 
+        const removeBtn = document.createElement('button');
+        removeBtn.classList.add('card-wrapper_btn', 'card-wrapper_btn-delete');
+        removeBtn.dataset.btnId = card.id;
+        removeBtn.innerHTML = "&times;";
+        this._remove = removeBtn;
+
+        const infoName = document.createElement('div');
+        infoName.classList.add('card-wrapper_text-field', 'card-wrapper_visitor-name');
+        infoName.innerHTML = card.content.name;
+        
+        const infoDoctor = document.createElement('div');
+        infoDoctor.classList.add('card-wrapper_text-field', 'card-wrapper_doctor-for-visit');
+        infoDoctor.innerHTML = card.doctor;
+
+        const moreBtn = document.createElement('button');
+        moreBtn.classList.add('card-wrapper_btn', 'card-wrapper_btn-show-more');
+        moreBtn.dataset.btnId = card.id;
+        moreBtn.innerHTML = "Show More";
+        this._more = moreBtn
+
+        this._el.append(this._remove);
+        this._el.append(infoName);
+        this._el.append(infoDoctor);
+        this._el.append(this._more);
+        this._listenRemove();
+        
+    }
+    async _handleRemoving(){
+        const cardId = this._remove.dataset.btnId;
+        await this.requestActionWithCards.deleteCard(cardId);
+        this._el.remove()
+        this.destroy()
+    }
+    _listenRemove(){
+        this._handleRemoving = this._handleRemoving.bind(this);
+        this._remove.addEventListener('click', this._handleRemoving);
+    }
+    destroy() {
+        this._remove.removeEventListener('click', this._handleRemoving);
+        super.destroy();
     }
 }
 
