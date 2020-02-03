@@ -12,6 +12,7 @@ export class VisitCards {
         this.requestActionWithCards = new ActionWithCards(token);
         await this._renderCards();
         await this._addListenerToRemoveCard();
+        await this._actionWithModal();
     }
 
     async _renderCards() {
@@ -58,6 +59,39 @@ export class VisitCards {
             });
         });
     }
+
+    _actionWithModal() {
+
+        const modal = document.getElementById("showMoreModal");
+        const btnShowMore = document.querySelectorAll(".card-wrapper_btn-show-more");
+        const btnClose = document.querySelector(".modal-close");
+
+// When the user clicks the button, open the modal
+        btnShowMore.forEach(btnMore => {
+            btnMore.addEventListener('click', async event => {
+                if(event.target === btnMore) {
+                    modal.style.display = "block";
+                    const cardID = btnMore.getAttribute('data-btn-id');
+                    console.log('________cardID_________', cardID);
+                    const cardData = await this.requestActionWithCards.getCard(cardID);
+                    console.log('cardData_________', cardData);
+                }
+            })
+        });
+
+
+        btnClose.onclick = function() {
+            modal.style.display = "none";
+        };
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    }
+
+
  }
 
  async function init() {
