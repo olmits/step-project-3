@@ -88,8 +88,8 @@ async function init() {
     const auth = new Auth();
     const token = await auth.loginUser("test321@gmail.com", "Testuser!");
     const test = new ActionWithCards(token);
-    // const respGetCards = await test.getCards();
-    // await console.log('GET_ALL_CARDS', respGetCards);
+    const respGetCards = await test.getCards();
+    console.log('GET_ALL_CARDS', respGetCards);
     // const respGetCard = await test.getCard(3148);
     // await console.log('GET_CARD',respGetCard);
     // const respPostCard = await test.createCard(cardiologist);
