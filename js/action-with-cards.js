@@ -66,7 +66,7 @@ export class ActionWithCards {
         const resp = await RequestHelper.getOrDelData('DELETE', `http://cards.danit.com.ua/cards/${cardID}`, this.userToken);
         await this.storageHelper.deleteItemFromStorage(cardID);
 
-        await console.log('resprespresp', resp);
+        await console.log('DEL resp', resp);
         return resp
     }
 
@@ -78,13 +78,10 @@ export class ActionWithCards {
     }
 
     async updateCard(obj, cardID) {
-        await console.log("OBJ-------", JSON.stringify(obj));
-        //debugger;
         const resp = await RequestHelper.createUpdateData('PUT', `http://cards.danit.com.ua/cards/${cardID}`, obj, this.userToken);
         obj.id = `${cardID}`;
-        console.log('PUT_CARD resp &&&&&&&&&&',resp);
         this.storageHelper.updateItemFromStorage(obj, cardID);
-        console.log('#########$$$$$$$$$$$$$$$$&&&&&&&&&&');
+        console.log('PUT_resp', resp);
 
         return resp
     }

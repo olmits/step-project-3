@@ -105,9 +105,7 @@ export class VisitCards {
                 if(event.target === btnMore) {
                     modal.style.display = "block";
                     const cardID = btnMore.getAttribute('data-btn-id');
-                    console.log('________cardID_________', cardID);
                     const cardData = await this.requestActionWithCards.getCard(cardID);
-                    console.log('cardData_________', cardData);
                     this._renderDataInCard(cardData);
                 }
             })
@@ -228,9 +226,7 @@ export class VisitCards {
             };
 
             const doctorType = document.querySelector('.doctor-type').innerHTML;
-            console.log('doctorType ========', doctorType);
             const cardId = event.target.getAttribute('data-update-btn-id');
-           console.log('---------cardId', cardId);
             switch (doctorType) {
                 case 'cardiologist':
                     event.preventDefault();
