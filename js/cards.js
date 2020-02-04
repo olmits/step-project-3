@@ -80,7 +80,10 @@ class Modal {
             )
         }
         await this.newVisit.init();
-        this.newVisit.appendTo(mainContainer);
+        
+        const cardContainer = new Draggable(this.newVisit);
+        cardContainer.appendTo(mainContainer);
+
         this._closeModalFunction();
     };
     proceedSelect = (event) => {

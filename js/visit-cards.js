@@ -13,7 +13,7 @@ export class VisitCards {
         const token = await auth.loginUser("test321@gmail.com", "Testuser!");
         this.requestActionWithCards = new ActionWithCards(token);
         await this._renderCards();
-        await this._addListenerToRemoveCard();
+        // await this._addListenerToRemoveCard();
         await this._openModal();
         await this._closeModal();
     }
@@ -74,28 +74,30 @@ export class VisitCards {
     //                 const cardContainer = document.getElementById(cardID);
     //                 cardContainer.remove();
 
-     _addListenerToRemoveCard() {
-        const deleteBtns = document.querySelectorAll('.card-wrapper_btn-delete');
-        deleteBtns.forEach(btn => {
-            btn.addEventListener('click', async event => {
-                if(btn === event.target) {
-                    const cardID = btn.getAttribute('data-btn-id');
-                    console.log('cardID', cardID);
-                    await this.requestActionWithCards.deleteCard(cardID);
-                    const cardContainer = document.getElementById(cardID);
-                    cardContainer.remove();
+    //  _addListenerToRemoveCard() {
+    //     const deleteBtns = document.querySelectorAll('.card-wrapper_btn-delete');
+    //     deleteBtns.forEach(btn => {
+    //         btn.addEventListener('click', async event => {
+    //             if(btn === event.target) {
+    //                 const cardID = btn.getAttribute('data-btn-id');
+    //                 console.log('cardID', cardID);
+    //                 await this.requestActionWithCards.deleteCard(cardID);
+    //                 const cardContainer = document.getElementById(cardID);
+    //                 cardContainer.remove();
 
-                }
-            });
-        });
-    }
+    //             }
+    //         });
+    //     });
+    // }
 
     _openModal() {
         const modal = document.getElementById("showMoreModal");
-        const btnShowMore = document.querySelectorAll(".card-wrapper_btn-show-more");
+        const btnShowMore = document.querySelectorAll(".card-item_btn-show-more");
+        
 
         btnShowMore.forEach(btnMore => {
             btnMore.addEventListener('click', async event => {
+                
                 if(event.target === btnMore) {
                     modal.style.display = "block";
                     const cardID = btnMore.getAttribute('data-btn-id');
