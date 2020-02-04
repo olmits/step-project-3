@@ -264,35 +264,43 @@ button {
         display: block;
     }
 }
-.card-wrapper {
-    border: 1px solid darkcyan;
+.card-wrapper{
     margin: 5px;
-    height: 100px;
     width: 23%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-
-    &_btn{
-        border-radius: 3px;
-    }
-    &_btn-delete{
-        background-color: lightcoral;
-        align-self: flex-end;
-    }
-    &_btn-show-more{
-        font-size: 12px;
-        background-color: #99ddff;
-        margin-top: 5px;
-    }
-    &_text-field{
-        //margin-right: 5px;
-        //margin-bottom: 5px;
-        padding-left: 5px;
-        padding-bottom: 5px;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
+    .card-item {
+        border: 1px solid $color-theme-1;
+        height: 100px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    
+        &_btn{
+            border-radius: 3px;
+            margin: 3px;
+            border-style: none;
+            &:hover {
+                background-color: white;
+            }
+        }
+        &_btn-delete{
+            background-color: lightcoral;
+            border: 1px solid lightcoral;
+            align-self: flex-end;
+        }
+        &_btn-show-more{
+            font-size: 12px;
+            background-color: $color-theme-2;
+            border: 1px solid $color-theme-2;
+            margin-top: 5px;
+        }
+        &_text-field{
+            padding-left: 5px;
+            padding-bottom: 5px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
     }
 }
 

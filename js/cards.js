@@ -1,6 +1,7 @@
 import {VisitTherapist} from './visit-therapist.js';
 import {VisitСardiologist} from './visit-cardiologist.js';
 import {VisitDentist} from './visit-dentist.js';
+import {Draggable} from "./drag-drop-object.js";
 
 const addCard = document.querySelector('.container-item__header-add-card');
 const cardModal = document.querySelector('.container-item__modal');

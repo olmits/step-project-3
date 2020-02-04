@@ -20,6 +20,5 @@ export class VisitTherapist extends Visit {
     async init() {
         await super.init()
         await this._postData(this._obj);
-        // this.listenRemove();
     }
 }
