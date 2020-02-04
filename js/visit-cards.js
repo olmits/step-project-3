@@ -17,7 +17,7 @@ export class VisitCards {
         // await this._addListenerToRemoveCard();
         await this._openModal();
         await this._closeModal();
-      //  await this._updateDataInCard();
+        await this._updateDataInCard();
     }
 
     async _renderCards() {
@@ -145,7 +145,7 @@ export class VisitCards {
         const blockTherapist = document.querySelector('.doc-therapist');
         const btnUpdate = document.querySelector('.btn-update-card');
 
-     //   btnUpdate.setAttribute('data-update-btn-id', cardData.id);
+        btnUpdate.setAttribute('data-update-btn-id', cardData.id);
 
 
         doctorType.innerHTML = cardData.doctor;
@@ -181,59 +181,71 @@ export class VisitCards {
     }
 
     _updateDataInCard() {
-        const doctorType = document.querySelector('.doctor-type').innerHTML;
-        const purposeOfVisit = document.querySelector('.input-aim').value;
-        const visitorName = document.querySelector('.input-name').value;
-        const dateOfVisit = document.querySelector('.input-visit-data').value;
-        const forCardioAge = document.querySelector('.input-age-c').value;
-        const forCardioWeight = document.querySelector('.input-weight').value;
-        const forCardioBp = document.querySelector('.input-bp').value;
-        const forCardioIllness = document.querySelector('.input-illness').value;
-        const forTherapistAge = document.querySelector('.input-age-t').value;
-        const forDentistDateOfLastVisit = document.querySelector('.input-date-of-last-visit').value;
         const btnUpdate = document.querySelector('.btn-update-card');
 
-        const cardiologist = {
-            doctor: "cardiologist",
-            title: `${purposeOfVisit}`,
-            content: {
-                name: `${visitorName}`,
-                date: `${dateOfVisit}`,
-                bp: forCardioBp,
-                age: forCardioAge,
-                weight: forCardioWeight,
-                heartIllness: `${forCardioIllness}`,
-            }
-        };
-        const therapist = {
-            doctor: "therapist",
-            title: `${purposeOfVisit}`,
-            content: {
-                name: `${visitorName}`,
-                date: `${dateOfVisit}`,
-                age: forTherapistAge,
-            }
-        };
-        const dentist = {
-            doctor: "dentist",
-            title: "textarea Цель визита",
-            content: {
-                name: `${visitorName}`,
-                date: `${dateOfVisit}`,
-                dateOfLastVisit: `${forDentistDateOfLastVisit}`,
-            }
-        };
 
         btnUpdate.addEventListener('click', async event => {
+            const purposeOfVisit = document.querySelector('.input-aim').value;
+            const visitorName = document.querySelector('.input-name').value;
+            const dateOfVisit = document.querySelector('.input-visit-data').value;
+            const forCardioAge = document.querySelector('.input-age-c').value;
+            const forCardioWeight = document.querySelector('.input-weight').value;
+            const forCardioBp = document.querySelector('.input-bp').value;
+            const forCardioIllness = document.querySelector('.input-illness').value;
+            const forTherapistAge = document.querySelector('.input-age-t').value;
+            const forDentistDateOfLastVisit = document.querySelector('.input-date-of-last-visit').value;
+            const btnCloseModal = document.querySelector('.modal-close');
+
+            const cardiologist = {
+                doctor: "cardiologist",
+                title: `${purposeOfVisit}`,
+                content: {
+                    name: `${visitorName}`,
+                    date: `${dateOfVisit}`,
+                    bp: forCardioBp,
+                    age: forCardioAge,
+                    weight: forCardioWeight,
+                    heartIllness: `${forCardioIllness}`,
+                }
+            };
+            const therapist = {
+                doctor: "therapist",
+                title: `${purposeOfVisit}`,
+                content: {
+                    name: `${visitorName}`,
+                    date: `${dateOfVisit}`,
+                    age: forTherapistAge,
+                }
+            };
+            const dentist = {
+                doctor: "dentist",
+                title: `${purposeOfVisit}`,
+                content: {
+                    name: `${visitorName}`,
+                    date: `${dateOfVisit}`,
+                    dateOfLastVisit: `${forDentistDateOfLastVisit}`,
+                }
+            };
+
+            const doctorType = document.querySelector('.doctor-type').innerHTML;
+            console.log('doctorType ========', doctorType);
+            const cardId = event.target.getAttribute('data-update-btn-id');
+           console.log('---------cardId', cardId);
             switch (doctorType) {
                 case 'cardiologist':
-                    await this.requestActionWithCards.updateCard(cardiologist, );
+                    event.preventDefault();
+                    await this.requestActionWithCards.updateCard(cardiologist, cardId);
+                    await btnCloseModal.click();
                     break;
                 case 'dentist':
-                    await this.requestActionWithCards.updateCard(dentist, );
+                    event.preventDefault();
+                    await this.requestActionWithCards.updateCard(dentist, cardId);
+                    await btnCloseModal.click();
                     break;
                 case 'therapist':
-                    await this.requestActionWithCards.updateCard(therapist, );
+                    event.preventDefault();
+                    await this.requestActionWithCards.updateCard(therapist, cardId);
+                    await btnCloseModal.click();
                     break;
                 default:
                     alert('Sorry, this card is broken');

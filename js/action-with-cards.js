@@ -78,8 +78,10 @@ export class ActionWithCards {
     }
 
     async updateCard(obj, cardID) {
+        await console.log("OBJ-------", JSON.stringify(obj));
         const resp = await RequestHelper.createUpdateData('PUT', `http://cards.danit.com.ua/cards/${cardID}`, obj, this.userToken);
         obj.id = `${cardID}`;
+        await console.log('PUT_CARD resp &&&&&&&&&&',resp);
         await this.storageHelper.updateItemFromStorage(obj, cardID);
 
         return resp
@@ -94,8 +96,8 @@ async function init() {
     // await console.log('GET_ALL_CARDS', respGetCards);
     // const respGetCard = await test.getCard(3063);
     // await console.log('GET_CARD',respGetCard);
-    const respPostCard = await test.createCard(dentist);
-    await console.log('POST_CARD',respPostCard);
+    // const respPostCard = await test.createCard(dentist);
+   // await console.log('POST_CARD',respPostCard);
     // const respPutCard = await test.updateCard(cardiologist, 3411);
     // await console.log('PUT_CARD',respPutCard);
     // const respDeleteCard = await test.deleteCard(3501);
