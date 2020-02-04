@@ -84,9 +84,8 @@ class Modal {
         
         const cardContainer = new Draggable(this.newVisit);
         cardContainer.appendTo(mainContainer);
+        // TODO: Check if response is NULL and throw an error
         sheduleItems.push({item: this.newVisit, container: cardContainer});
-        console.log(sheduleItems);
-        
 
         this._closeModalFunction();
     };
