@@ -12,7 +12,8 @@ export class VisitCards {
         this.requestActionWithCards = new ActionWithCards(token);
         await this._renderCards();
         await this._addListenerToRemoveCard();
-        await this._actionWithModal();
+        await this._openModal();
+        await this._closeModal();
     }
 
     async _renderCards() {
@@ -60,10 +61,9 @@ export class VisitCards {
         });
     }
 
-    _actionWithModal() {
+    _openModal() {
         const modal = document.getElementById("showMoreModal");
         const btnShowMore = document.querySelectorAll(".card-wrapper_btn-show-more");
-        const btnClose = document.querySelector(".modal-close");
 
         btnShowMore.forEach(btnMore => {
             btnMore.addEventListener('click', async event => {
@@ -77,7 +77,11 @@ export class VisitCards {
                 }
             })
         });
+    }
 
+    _closeModal() {
+        const modal = document.getElementById("showMoreModal");
+        const btnClose = document.querySelector(".modal-close");
 
         btnClose.onclick = function() {
             modal.style.display = "none";
