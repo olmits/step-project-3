@@ -1,5 +1,7 @@
 import {SheduleException} from "./shedule-exceptions.js";
 
+export const sheduleItems = [];
+
 export class Shedule {
     _el
 

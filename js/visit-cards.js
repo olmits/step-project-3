@@ -2,6 +2,7 @@ import {ActionWithCards, Auth} from "./action-with-cards.js";
 import {LocalStorageHelper} from "./local-storage-helper.js";
 import {Visit} from './visit.js';
 import {Draggable} from "./drag-drop-object.js";
+import {sheduleItems} from "./shedule-component.js";
 
 export class VisitCards {
     requestActionWithCards;
@@ -33,6 +34,7 @@ export class VisitCards {
 
                 const cardContainer = new Draggable(cardVisit);
                 cardContainer.appendTo(mainContainer);
+                sheduleItems.push({item: cardVisit, container: cardContainer});
             });
             
         } else {
@@ -46,6 +48,7 @@ export class VisitCards {
                 
                 const cardContainer = new Draggable(cardVisit);
                 cardContainer.appendTo(mainContainer);
+                sheduleItems.push({item: cardVisit, container: cardContainer});
             });
         }
     }
