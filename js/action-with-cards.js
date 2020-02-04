@@ -3,9 +3,9 @@ import {LocalStorageHelper} from "./local-storage-helper.js";
 
 const cardiologist = {
     doctor: "Cardiologist",
-    title: "textarea Цель визита",
+    title: "123textarea Цель визита",
     content: {
-        name: "Ivan vjhbkhbkhbh bjhbhjbjhbjhbjbjh",
+        name: "Bob",
         date: "01.02.2020",
         bp: "24",
         age: 23,
@@ -94,7 +94,7 @@ async function init() {
     // await console.log('GET_ALL_CARDS', respGetCards);
     const respGetCard = await test.getCard(3063);
     await console.log('GET_CARD',respGetCard);
-    // const respPostCard = await test.createCard(cardiologist);
+    // const respPostCard = await test.createCard(dentist);
     // await console.log('POST_CARD',respPostCard);
     // const respPutCard = await test.updateCard(cardiologist, 3411);
     // await console.log('PUT_CARD',respPutCard);

@@ -106,29 +106,29 @@ export class VisitCards {
         const blockTherapist = document.querySelector('.doc-therapist');
 
         doctorType.innerHTML = cardData.doctor;
-        purposeOfVisit.innerHTML = cardData.title;
-        visitorName.innerHTML = cardData.content.name;
-        dateOfVisit.innerHTML = cardData.content.date;
+        purposeOfVisit.value = cardData.title;
+        visitorName.value = cardData.content.name;
+        dateOfVisit.value = cardData.content.date;
 
         switch (cardData.doctor) {
             case 'Cardiologist':
                 blockCardio.style.display = 'block';
-                forCardioAge.innerHTML = cardData.content.age;
-                forCardioWeight.innerHTML = cardData.content.weight;
-                forCardioBp.innerHTML = cardData.content.bp;
-                forCardioIllness.innerHTML = cardData.content.heartIllness;
+                forCardioAge.value = cardData.content.age;
+                forCardioWeight.value = cardData.content.weight;
+                forCardioBp.value = cardData.content.bp;
+                forCardioIllness.value = cardData.content.heartIllness;
                 blockDentist.style.display = 'none';
                 blockTherapist.style.display = 'none';
                 break;
             case 'Dentist':
                 blockDentist.style.display = 'block';
-                forDentistDateOfLastVisit.innerHTML = cardData.content.dateOfLastVisit;
+                forDentistDateOfLastVisit.value = cardData.content.dateOfLastVisit;
                 blockCardio.style.display = 'none';
                 blockTherapist.style.display = 'none';
                 break;
             case 'Therapist':
                 blockTherapist.style.display = 'block';
-                forTherapistAge.innerHTML = cardData.content.age;
+                forTherapistAge.value = cardData.content.age;
                 blockDentist.style.display = 'none';
                 blockCardio.style.display = 'none';
                 break;
