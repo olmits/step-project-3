@@ -111,7 +111,7 @@ export class VisitCards {
         dateOfVisit.value = cardData.content.date;
 
         switch (cardData.doctor) {
-            case 'Cardiologist':
+            case 'cardiologist':
                 blockCardio.style.display = 'block';
                 forCardioAge.value = cardData.content.age;
                 forCardioWeight.value = cardData.content.weight;
@@ -120,13 +120,13 @@ export class VisitCards {
                 blockDentist.style.display = 'none';
                 blockTherapist.style.display = 'none';
                 break;
-            case 'Dentist':
+            case 'dentist':
                 blockDentist.style.display = 'block';
                 forDentistDateOfLastVisit.value = cardData.content.dateOfLastVisit;
                 blockCardio.style.display = 'none';
                 blockTherapist.style.display = 'none';
                 break;
-            case 'Therapist':
+            case 'therapist':
                 blockTherapist.style.display = 'block';
                 forTherapistAge.value = cardData.content.age;
                 blockDentist.style.display = 'none';

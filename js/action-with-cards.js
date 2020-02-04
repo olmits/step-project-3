@@ -2,7 +2,7 @@ import {RequestHelper} from "./request-helper.js";
 import {LocalStorageHelper} from "./local-storage-helper.js";
 
 const cardiologist = {
-    doctor: "Cardiologist",
+    doctor: "cardiologist",
     title: "123textarea Цель визита",
     content: {
         name: "Bob",
@@ -14,7 +14,7 @@ const cardiologist = {
     }
 };
 const therapist = {
-    doctor: "Therapist",
+    doctor: "therapist",
     title: "textarea Цель визита",
     content: {
         name: "Ivan vjhbkhbkhbh bjhbhjbjhbjhbjbjh",
@@ -23,7 +23,7 @@ const therapist = {
     }
 };
 const dentist = {
-    doctor: "Dentist",
+    doctor: "dentist",
     title: "textarea Цель визита",
     content: {
         name: "Ivan vjhbkhbkhbh bjhbhjbjhbjhbjbjh",
