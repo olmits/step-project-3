@@ -12,7 +12,7 @@ export class Draggable extends Shedule{
         this._card.appendTo(this._el);
     }
     destroy(){
-
-        super.destroy()
+        this._el.remove();
+        super.destroy();
     }
 }

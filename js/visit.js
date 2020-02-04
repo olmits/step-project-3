@@ -1,6 +1,6 @@
 import {LocalStorageHelper} from "./local-storage-helper.js";
 import {ActionWithCards, Auth} from "./action-with-cards.js";
-import {Shedule} from "./shedule-component.js";
+import {Shedule, sheduleItems} from "./shedule-component.js";
 import {Draggable} from "./drag-drop-object.js";
 
 
@@ -63,14 +63,19 @@ export class Visit extends Shedule {
     async _handleRemoving(){
         const cardId = this._remove.dataset.btnId;
         await this.requestActionWithCards.deleteCard(cardId);
-        this._el.remove()
-        this.destroy()
+        // TODO: Trow error if not an object
+        // TODO: Trow error in case of params abscent
+        const i = sheduleItems.findIndex( el => el.item._el === this._el);
+        sheduleItems[i].item.destroy()
+        sheduleItems[i].container.destroy()
+        sheduleItems.splice(i, 1);
     }
     _listenRemove(){
         this._handleRemoving = this._handleRemoving.bind(this);
         this._remove.addEventListener('click', this._handleRemoving);
     }
     destroy() {
+        this._el.remove()
         this._remove.removeEventListener('click', this._handleRemoving);
         super.destroy();
     }
