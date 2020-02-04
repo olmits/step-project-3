@@ -92,8 +92,8 @@ async function init() {
     const test = new ActionWithCards(token);
     // const respGetCards = await test.getCards();
     // await console.log('GET_ALL_CARDS', respGetCards);
-    const respGetCard = await test.getCard(3063);
-    await console.log('GET_CARD',respGetCard);
+    // const respGetCard = await test.getCard(3063);
+    // await console.log('GET_CARD',respGetCard);
     // const respPostCard = await test.createCard(dentist);
     // await console.log('POST_CARD',respPostCard);
     // const respPutCard = await test.updateCard(cardiologist, 3411);
