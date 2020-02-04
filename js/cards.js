@@ -2,6 +2,7 @@ import {VisitTherapist} from './visit-therapist.js';
 import {VisitСardiologist} from './visit-cardiologist.js';
 import {VisitDentist} from './visit-dentist.js';
 import {Draggable} from "./drag-drop-object.js";
+import {sheduleItems} from "./shedule-component.js";
 
 const addCard = document.querySelector('.container-item__header-add-card');
 const cardModal = document.querySelector('.container-item__modal');
@@ -80,7 +81,13 @@ class Modal {
             )
         }
         await this.newVisit.init();
-        this.newVisit.appendTo(mainContainer);
+        
+        const cardContainer = new Draggable(this.newVisit);
+        cardContainer.appendTo(mainContainer);
+        sheduleItems.push({item: this.newVisit, container: cardContainer});
+        console.log(sheduleItems);
+        
+
         this._closeModalFunction();
     };
     proceedSelect = (event) => {
