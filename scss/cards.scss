@@ -264,36 +264,112 @@ button {
         display: block;
     }
 }
-.card-wrapper {
-    border: 1px solid darkcyan;
+.card-wrapper{
     margin: 5px;
-    height: 100px;
     width: 23%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    .card-item {
+        border: 1px solid $color-theme-1;
+        height: 100px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        &_btn{
+            border-radius: 3px;
+            margin: 3px;
+            border-style: none;
+            &:hover {
+                background-color: white;
+            }
+        }
+        &_btn-delete{
+            background-color: lightcoral;
+            border: 1px solid lightcoral;
+            align-self: flex-end;
+        }
+        &_btn-show-more{
+            font-size: 12px;
+            background-color: $color-theme-2;
+            border: 1px solid $color-theme-2;
+            margin-top: 5px;
+        }
+        &_text-field{
+            padding-left: 5px;
+            padding-bottom: 5px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    }
+}
 
-    &_btn{
-        border-radius: 3px;
-    }
-    &_btn-delete{
-        background-color: lightcoral;
-        align-self: flex-end;
-    }
-    &_btn-show-more{
+
+
+/* The Modal (background) */
+.show-more-modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-card-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+
+    label {
         font-size: 12px;
+        color: #00458B;
+    }
+    input {
+        display: block;
+        margin-bottom: 10px;
+        width: 80%;
+    }
+    .doctor-type {
+        margin-bottom: 15px;
+        font-size: 16px;
+    }
+    .btn-update-card {
+        border-radius: 3px;
         background-color: #99ddff;
-        margin-top: 5px;
     }
-    &_text-field{
-        //margin-right: 5px;
-        //margin-bottom: 5px;
-        padding-left: 5px;
-        padding-bottom: 5px;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
+}
+
+/* The Close Button */
+.modal-close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.doc-cardiologist {
+    display: none;
+}
+.doc-therapist {
+    display: none;
+}
+.doc-dentist {
+    display: none;
 }
 
 
