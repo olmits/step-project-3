@@ -61,12 +61,10 @@ export class VisitCards {
     }
 
     _actionWithModal() {
-
         const modal = document.getElementById("showMoreModal");
         const btnShowMore = document.querySelectorAll(".card-wrapper_btn-show-more");
         const btnClose = document.querySelector(".modal-close");
 
-// When the user clicks the button, open the modal
         btnShowMore.forEach(btnMore => {
             btnMore.addEventListener('click', async event => {
                 if(event.target === btnMore) {
@@ -75,6 +73,7 @@ export class VisitCards {
                     console.log('________cardID_________', cardID);
                     const cardData = await this.requestActionWithCards.getCard(cardID);
                     console.log('cardData_________', cardData);
+                    this._renderDataInCard(cardData);
                 }
             })
         });
@@ -91,7 +90,52 @@ export class VisitCards {
         }
     }
 
+    _renderDataInCard(cardData) {
+        const doctorType = document.querySelector('.doctor-type');
+        const purposeOfVisit = document.querySelector('.input-aim');
+        const visitorName = document.querySelector('.input-name');
+        const dateOfVisit = document.querySelector('.input-visit-data');
+        const forCardioAge = document.querySelector('.input-age-c');
+        const forCardioWeight = document.querySelector('.input-weight');
+        const forCardioBp = document.querySelector('.input-bp');
+        const forCardioIllness = document.querySelector('.input-illness');
+        const forTherapistAge = document.querySelector('.input-age-t');
+        const forDentistDateOfLastVisit = document.querySelector('.input-date-of-last-visit');
+        const blockCardio = document.querySelector('.doc-cardiologist');
+        const blockDentist = document.querySelector('.doc-dentist');
+        const blockTherapist = document.querySelector('.doc-therapist');
 
+        doctorType.innerHTML = cardData.doctor;
+        purposeOfVisit.value = cardData.title;
+        visitorName.value = cardData.content.name;
+        dateOfVisit.value = cardData.content.date;
+
+        switch (cardData.doctor) {
+            case 'cardiologist':
+                blockCardio.style.display = 'block';
+                forCardioAge.value = cardData.content.age;
+                forCardioWeight.value = cardData.content.weight;
+                forCardioBp.value = cardData.content.bp;
+                forCardioIllness.value = cardData.content.heartIllness;
+                blockDentist.style.display = 'none';
+                blockTherapist.style.display = 'none';
+                break;
+            case 'dentist':
+                blockDentist.style.display = 'block';
+                forDentistDateOfLastVisit.value = cardData.content.dateOfLastVisit;
+                blockCardio.style.display = 'none';
+                blockTherapist.style.display = 'none';
+                break;
+            case 'therapist':
+                blockTherapist.style.display = 'block';
+                forTherapistAge.value = cardData.content.age;
+                blockDentist.style.display = 'none';
+                blockCardio.style.display = 'none';
+                break;
+            default:
+                alert('Sorry, this card is broken');
+        }
+    }
  }
 
  async function init() {

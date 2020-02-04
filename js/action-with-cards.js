@@ -2,10 +2,10 @@ import {RequestHelper} from "./request-helper.js";
 import {LocalStorageHelper} from "./local-storage-helper.js";
 
 const cardiologist = {
-    doctor: "Cardiolog",
-    title: "textarea Цель визита",
+    doctor: "cardiologist",
+    title: "123textarea Цель визита",
     content: {
-        name: "Ivan vjhbkhbkhbh bjhbhjbjhbjhbjbjh",
+        name: "Bob",
         date: "01.02.2020",
         bp: "24",
         age: 23,
@@ -14,7 +14,7 @@ const cardiologist = {
     }
 };
 const therapist = {
-    doctor: "Cardiolog555 ghjkbnmk;l ghvjjk;l",
+    doctor: "therapist",
     title: "textarea Цель визита",
     content: {
         name: "Ivan vjhbkhbkhbh bjhbhjbjhbjhbjbjh",
@@ -22,8 +22,8 @@ const therapist = {
         age: 23,
     }
 };
-const dantist = {
-    doctor: "Cardiolog555 ghjkbnmk;l ghvjjk;l",
+const dentist = {
+    doctor: "dentist",
     title: "textarea Цель визита",
     content: {
         name: "Ivan vjhbkhbkhbh bjhbhjbjhbjhbjbjh",
@@ -57,7 +57,9 @@ export class ActionWithCards {
     }
 
     async getCard(cardID) {
-        return await RequestHelper.getOrDelData('GET', `http://cards.danit.com.ua/cards/${cardID}`, this.userToken)
+        const resp = await RequestHelper.getOrDelData('GET', `http://cards.danit.com.ua/cards/${cardID}`, this.userToken);
+        await console.log('RESP GET CARD --------', resp);
+        return  resp
     }
 
     async deleteCard(cardID) {
@@ -90,9 +92,9 @@ async function init() {
     const test = new ActionWithCards(token);
     // const respGetCards = await test.getCards();
     // await console.log('GET_ALL_CARDS', respGetCards);
-    // const respGetCard = await test.getCard(3148);
-    // await console.log('GET_CARD',respGetCard);
-    // const respPostCard = await test.createCard(cardiologist);
+    const respGetCard = await test.getCard(3063);
+    await console.log('GET_CARD',respGetCard);
+    // const respPostCard = await test.createCard(dentist);
     // await console.log('POST_CARD',respPostCard);
     // const respPutCard = await test.updateCard(cardiologist, 3411);
     // await console.log('PUT_CARD',respPutCard);
