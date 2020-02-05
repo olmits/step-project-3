@@ -229,17 +229,14 @@ export class VisitCards {
             const cardId = event.target.getAttribute('data-update-btn-id');
             switch (doctorType) {
                 case 'cardiologist':
-                    event.preventDefault();
                     await this.requestActionWithCards.updateCard(cardiologist, cardId);
-                    await btnCloseModal.click();
+                    btnCloseModal.click();
                     break;
                 case 'dentist':
-                    event.preventDefault();
                     await this.requestActionWithCards.updateCard(dentist, cardId);
                     await btnCloseModal.click();
                     break;
                 case 'therapist':
-                    event.preventDefault();
                     await this.requestActionWithCards.updateCard(therapist, cardId);
                     await btnCloseModal.click();
                     break;
