@@ -91,14 +91,14 @@ async function init() {
     const auth = new Auth();
     const token = await auth.loginUser("test321@gmail.com", "Testuser!");
     const test = new ActionWithCards(token);
-    // const respGetCards = await test.getCards();
-    // await console.log('GET_ALL_CARDS', respGetCards);
+    const respGetCards = await test.getCards();
+    console.log('GET_ALL_CARDS', respGetCards);
     // const respGetCard = await test.getCard(3063);
     // await console.log('GET_CARD',respGetCard);
     // const respPostCard = await test.createCard(dentist);
    // await console.log('POST_CARD',respPostCard);
-    const respPutCard = await test.updateCard(cardiologist, 4189);
-    await console.log('PUT_CARD',respPutCard);
+    // const respPutCard = await test.updateCard(cardiologist, 4189);
+    // await console.log('PUT_CARD',respPutCard);
     // const respDeleteCard = await test.deleteCard(3501);
     // await console.log('DELETE_CARD',respDeleteCard);
 }
