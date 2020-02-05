@@ -18,11 +18,10 @@ export class LocalStorageHelper {
      updateItemFromStorage(obj, cardID) {
           const cardsArr = JSON.parse(localStorage.getItem('cards'));
           for (let i = 0; i < cardsArr.length; i++) {
-               if(parseInt(cardsArr[i].id) === cardID){
-                    cardsArr[i] = obj
+               if(parseInt(cardsArr[i].id) === parseInt(cardID)){
+                    cardsArr[i] = obj;
                }
           }
-          console.log('cardsArr', cardsArr);
           localStorage.setItem('cards', JSON.stringify(cardsArr));
      }
 

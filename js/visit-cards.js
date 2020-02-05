@@ -17,6 +17,7 @@ export class VisitCards {
         // await this._addListenerToRemoveCard();
         await this._openModal();
         await this._closeModal();
+        await this._updateDataInCard();
     }
 
     async _renderCards() {
@@ -104,9 +105,7 @@ export class VisitCards {
                 if(event.target === btnMore) {
                     modal.style.display = "block";
                     const cardID = btnMore.getAttribute('data-btn-id');
-                    console.log('________cardID_________', cardID);
                     const cardData = await this.requestActionWithCards.getCard(cardID);
-                    console.log('cardData_________', cardData);
                     this._renderDataInCard(cardData);
                 }
             })
@@ -142,6 +141,10 @@ export class VisitCards {
         const blockCardio = document.querySelector('.doc-cardiologist');
         const blockDentist = document.querySelector('.doc-dentist');
         const blockTherapist = document.querySelector('.doc-therapist');
+        const btnUpdate = document.querySelector('.btn-update-card');
+
+        btnUpdate.setAttribute('data-update-btn-id', cardData.id);
+
 
         doctorType.innerHTML = cardData.doctor;
         purposeOfVisit.value = cardData.title;
@@ -173,6 +176,77 @@ export class VisitCards {
             default:
                 alert('Sorry, this card is broken');
         }
+    }
+
+    _updateDataInCard() {
+        const btnUpdate = document.querySelector('.btn-update-card');
+
+
+        btnUpdate.addEventListener('click', async event => {
+            const purposeOfVisit = document.querySelector('.input-aim').value;
+            const visitorName = document.querySelector('.input-name').value;
+            const dateOfVisit = document.querySelector('.input-visit-data').value;
+            const forCardioAge = document.querySelector('.input-age-c').value;
+            const forCardioWeight = document.querySelector('.input-weight').value;
+            const forCardioBp = document.querySelector('.input-bp').value;
+            const forCardioIllness = document.querySelector('.input-illness').value;
+            const forTherapistAge = document.querySelector('.input-age-t').value;
+            const forDentistDateOfLastVisit = document.querySelector('.input-date-of-last-visit').value;
+            const btnCloseModal = document.querySelector('.modal-close');
+
+            const cardiologist = {
+                doctor: "cardiologist",
+                title: `${purposeOfVisit}`,
+                content: {
+                    name: `${visitorName}`,
+                    date: `${dateOfVisit}`,
+                    bp: forCardioBp,
+                    age: forCardioAge,
+                    weight: forCardioWeight,
+                    heartIllness: `${forCardioIllness}`,
+                }
+            };
+            const therapist = {
+                doctor: "therapist",
+                title: `${purposeOfVisit}`,
+                content: {
+                    name: `${visitorName}`,
+                    date: `${dateOfVisit}`,
+                    age: forTherapistAge,
+                }
+            };
+            const dentist = {
+                doctor: "dentist",
+                title: `${purposeOfVisit}`,
+                content: {
+                    name: `${visitorName}`,
+                    date: `${dateOfVisit}`,
+                    dateOfLastVisit: `${forDentistDateOfLastVisit}`,
+                }
+            };
+
+            const doctorType = document.querySelector('.doctor-type').innerHTML;
+            const cardId = event.target.getAttribute('data-update-btn-id');
+            switch (doctorType) {
+                case 'cardiologist':
+                    event.preventDefault();
+                    await this.requestActionWithCards.updateCard(cardiologist, cardId);
+                    await btnCloseModal.click();
+                    break;
+                case 'dentist':
+                    event.preventDefault();
+                    await this.requestActionWithCards.updateCard(dentist, cardId);
+                    await btnCloseModal.click();
+                    break;
+                case 'therapist':
+                    event.preventDefault();
+                    await this.requestActionWithCards.updateCard(therapist, cardId);
+                    await btnCloseModal.click();
+                    break;
+                default:
+                    alert('Sorry, this card is broken');
+            }
+        });
     }
  }
 

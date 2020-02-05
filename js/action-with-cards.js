@@ -3,9 +3,9 @@ import {LocalStorageHelper} from "./local-storage-helper.js";
 
 const cardiologist = {
     doctor: "cardiologist",
-    title: "123textarea Цель визита",
+    title: "one more test",
     content: {
-        name: "Bob",
+        name: "Tom",
         date: "01.02.2020",
         bp: "24",
         age: 23,
@@ -66,7 +66,7 @@ export class ActionWithCards {
         const resp = await RequestHelper.getOrDelData('DELETE', `http://cards.danit.com.ua/cards/${cardID}`, this.userToken);
         await this.storageHelper.deleteItemFromStorage(cardID);
 
-        await console.log('resprespresp', resp);
+        await console.log('DEL resp', resp);
         return resp
     }
 
@@ -80,7 +80,8 @@ export class ActionWithCards {
     async updateCard(obj, cardID) {
         const resp = await RequestHelper.createUpdateData('PUT', `http://cards.danit.com.ua/cards/${cardID}`, obj, this.userToken);
         obj.id = `${cardID}`;
-        await this.storageHelper.updateItemFromStorage(obj, cardID);
+        this.storageHelper.updateItemFromStorage(obj, cardID);
+        console.log('PUT_resp', resp);
 
         return resp
     }
@@ -95,9 +96,9 @@ async function init() {
     // const respGetCard = await test.getCard(3063);
     // await console.log('GET_CARD',respGetCard);
     // const respPostCard = await test.createCard(dentist);
-    // await console.log('POST_CARD',respPostCard);
-    // const respPutCard = await test.updateCard(cardiologist, 3411);
-    // await console.log('PUT_CARD',respPutCard);
+   // await console.log('POST_CARD',respPostCard);
+    const respPutCard = await test.updateCard(cardiologist, 4189);
+    await console.log('PUT_CARD',respPutCard);
     // const respDeleteCard = await test.deleteCard(3501);
     // await console.log('DELETE_CARD',respDeleteCard);
 }
