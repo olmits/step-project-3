@@ -61,10 +61,16 @@ export class VisitCards {
     
 export class ShowMore  extends Modal {
 
-    constructor(modal, closeBtn) {
+    constructor(modal, closeBtn, cardData) {
         super(modal, closeBtn)
+        this._cardData = cardData;
         this._updateDataInCard();
     }
+    openModal(){
+        super.openModal();
+        this._renderDataInCard(this._cardData);
+    }
+
     _renderDataInCard(cardData) {
         const doctorType = document.querySelector('.doctor-type');
         const purposeOfVisit = document.querySelector('.input-aim');
