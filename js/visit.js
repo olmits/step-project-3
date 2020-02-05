@@ -1,7 +1,7 @@
 import {LocalStorageHelper} from "./local-storage-helper.js";
 import {ActionWithCards, Auth} from "./action-with-cards.js";
 import {Shedule, sheduleItems} from "./shedule-component.js";
-import {Draggable} from "./drag-drop-object.js";
+import {ShowMore, showMoreModal, showMoreCloseBtn} from "./visit-cards.js";
 
 
 
@@ -73,7 +73,8 @@ export class Visit extends Shedule {
         sheduleItems.splice(i, 1);
     }
     _handleMoreBtn(){
-        console.log('AAAAAAAAAAAA');
+        const modalProcessing = new ShowMore(showMoreModal, showMoreCloseBtn);
+        modalProcessing.openModal();
     }
     _listenMoreBtn(){
         this._handleMoreBtn = this._handleMoreBtn.bind(this);

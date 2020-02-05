@@ -2,7 +2,10 @@ import {ActionWithCards, Auth} from "./action-with-cards.js";
 import {LocalStorageHelper} from "./local-storage-helper.js";
 import {Visit} from './visit.js';
 import {Draggable} from "./drag-drop-object.js";
-import {sheduleItems, emptyState} from "./shedule-component.js";
+import {sheduleItems, emptyState, Modal} from "./shedule-component.js";
+
+export const showMoreModal = document.getElementById("showMoreModal");
+export const showMoreCloseBtn = document.querySelector(".modal-close");
 
 export class VisitCards {
     requestActionWithCards;
@@ -56,46 +59,12 @@ export class VisitCards {
     }
 }
     
-export class ShowMore {
+export class ShowMore  extends Modal {
 
-    constructor() {
-        this._openModal();
-        this._closeModal();
+    constructor(modal, closeBtn) {
+        super(modal, closeBtn)
         this._updateDataInCard();
     }
-    _openModal() {
-        const modal = document.getElementById("showMoreModal");
-        const btnShowMore = document.querySelectorAll(".card-item_btn-show-more");
-        
-
-        btnShowMore.forEach(btnMore => {
-            btnMore.addEventListener('click', async event => {
-                
-                if(event.target === btnMore) {
-                    modal.style.display = "block";
-                    const cardID = btnMore.getAttribute('data-btn-id');
-                    const cardData = await this.requestActionWithCards.getCard(cardID);
-                    this._renderDataInCard(cardData);
-                }
-            })
-        });
-    }
-
-    _closeModal() {
-        const modal = document.getElementById("showMoreModal");
-        const btnClose = document.querySelector(".modal-close");
-
-        btnClose.onclick = function() {
-            modal.style.display = "none";
-        };
-
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    }
-
     _renderDataInCard(cardData) {
         const doctorType = document.querySelector('.doctor-type');
         const purposeOfVisit = document.querySelector('.input-aim');

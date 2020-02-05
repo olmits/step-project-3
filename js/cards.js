@@ -4,16 +4,17 @@ import {VisitDentist} from './visit-dentist.js';
 import {Draggable} from "./drag-drop-object.js";
 import {Modal, sheduleItems, emptyState} from "./shedule-component.js";
 
-const addCard = document.querySelector('.container-item__header-add-card');
-const cardModal = document.querySelector('.container-item__modal');
-const cardForm = document.querySelector('.container-item__modal-form');
-const cardCloseBtn = document.querySelector('.container-item__modal-close');
-const cardFormSelect = document.querySelector('.container-item__modal-form-select');
-const cardPatientField = document.querySelector('.patient-info-field');
 const mainContainer = document.querySelector('.container-item__board-space');
 
+const addCard = document.querySelector('.container-item__header-add-card');
+const addCardModal = document.querySelector('.container-item__modal');
+const addCardForm = document.querySelector('.container-item__modal-form');
+const addCardCloseBtn = document.querySelector('.container-item__modal-close');
+const addCardFormSelect = document.querySelector('.container-item__modal-form-select');
+const addCardPatientField = document.querySelector('.patient-info-field');
+
 addCard.addEventListener('click', () => {
-    const modalProcessing = new CardForm(cardModal, cardForm, cardCloseBtn, cardFormSelect, cardPatientField);
+    const modalProcessing = new CardForm(addCardModal, addCardForm, addCardCloseBtn, addCardFormSelect, addCardPatientField);
     modalProcessing.openModal()
 });
 
