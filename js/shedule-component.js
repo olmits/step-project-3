@@ -1,6 +1,7 @@
 import {SheduleException} from "./shedule-exceptions.js";
 
 export const sheduleItems = [];
+export const emptyState = document.querySelector('.empty-state-wrapper');
 
 export class Shedule {
     _el
@@ -23,7 +24,10 @@ export class Shedule {
         }
         this._el = element;
     }
+    _checkItemExistence(){
+        (sheduleItems.length < 2 ? emptyState.style.display = 'block' : emptyState.style.display = 'none');
+    }
     destroy(){
-
+        this._checkItemExistence();
     }
 }

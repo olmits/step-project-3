@@ -92,7 +92,7 @@ async function init() {
     const token = await auth.loginUser("test321@gmail.com", "Testuser!");
     const test = new ActionWithCards(token);
     const respGetCards = await test.getCards();
-    console.log('GET_ALL_CARDS', respGetCards);
+    // console.log('GET_ALL_CARDS', respGetCards);
     // const respGetCard = await test.getCard(3063);
     // await console.log('GET_CARD',respGetCard);
     // const respPostCard = await test.createCard(dentist);

@@ -2,7 +2,7 @@ import {ActionWithCards, Auth} from "./action-with-cards.js";
 import {LocalStorageHelper} from "./local-storage-helper.js";
 import {Visit} from './visit.js';
 import {Draggable} from "./drag-drop-object.js";
-import {sheduleItems} from "./shedule-component.js";
+import {sheduleItems, emptyState} from "./shedule-component.js";
 
 export class VisitCards {
     requestActionWithCards;
@@ -14,7 +14,6 @@ export class VisitCards {
         const token = await auth.loginUser("test321@gmail.com", "Testuser!");
         this.requestActionWithCards = new ActionWithCards(token);
         await this._renderCards();
-        // await this._addListenerToRemoveCard();
         await this._openModal();
         await this._closeModal();
         await this._updateDataInCard();
@@ -22,13 +21,14 @@ export class VisitCards {
 
     async _renderCards() {
         const mainContainer = document.querySelector('.container-item__board-space');
-        const emptyStateDiv = document.querySelector('.empty-state-wrapper');
         const lsData = localStorage.getItem('cards');
         if(lsData === '' || lsData === null) {
-            emptyStateDiv.style.display = 'block';
-            emptyStateDiv.style.display = 'none';
+            console.log(1);
+            
             const arrOfCards = await this.requestActionWithCards.getCards();
-            // arrOfCards.forEach(card => this._createCard(mainContainer, card));
+            
+            emptyState.style.display = 'none';
+            
             arrOfCards.forEach(card => {
                 const cardVisit = new Visit(card.title, card.content.date, card.content.name);
                 cardVisit.createLayout('div', {'class': 'card-item', 'id': card.id}, card);
@@ -38,10 +38,11 @@ export class VisitCards {
                 sheduleItems.push({item: cardVisit, container: cardContainer});
             });
             
-        } else {
-            emptyStateDiv.style.display = 'none';
+        } else if ((typeof(lsData) === 'string') && (lsData !== '[]')) {
             const arrOfCardsLS = this.storageHelper.getDataFromLC();
-            // arrOfCardsLS.forEach(card => this._createCard(mainContainer, card));
+            
+            emptyState.style.display = 'none';
+            
             arrOfCardsLS.forEach(card => {
                 const cardVisit = new Visit(card.title, card.content.date, card.content.name);
                 cardVisit.init();
@@ -51,48 +52,12 @@ export class VisitCards {
                 cardContainer.appendTo(mainContainer);
                 sheduleItems.push({item: cardVisit, container: cardContainer});
             });
+        } else {
+            console.log(3);
+            emptyState.style.display = 'block';
         }
     }
     
-    // _createCard(container, card) {
-    //     const cardContainer = document.createElement('div');
-    //     cardContainer.classList.add('card-item');
-    //     cardContainer.setAttribute('id', card.id);
-    //     cardContainer.innerHTML = `
-    // <button class="card-item_btn card-item_btn-delete" data-btn-id=${card.id}>X</button>
-    // <div class="card-item_text-field card-item_visitor-name">${card.content.name}</div>
-    // <div class="card-item_text-field card-item_doctor-for-visit">${card.doctor}</div>
-    // <button class="card-item_btn card-item_btn-show-more" data-btn-id=${card.id}>Показать больше</button>
-    // `;
-    //     container.append(cardContainer);
-    // }
-
-    //  async _addListenerToRemoveCard() {
-    //     const deleteBtns = document.querySelectorAll('.card-item_btn-delete');
-    //     deleteBtns.forEach(btn => {
-    //         btn.addEventListener('click', async event => {
-    //             if(btn === event.target) {
-    //                 const cardID = btn.getAttribute('data-btn-id');
-    //                 console.log('cardID', cardID);
-    //                 await this.requestActionWithCards.deleteCard(cardID);
-    //                 const cardContainer = document.getElementById(cardID);
-    //                 cardContainer.remove();
-
-    //  _addListenerToRemoveCard() {
-    //     const deleteBtns = document.querySelectorAll('.card-wrapper_btn-delete');
-    //     deleteBtns.forEach(btn => {
-    //         btn.addEventListener('click', async event => {
-    //             if(btn === event.target) {
-    //                 const cardID = btn.getAttribute('data-btn-id');
-    //                 console.log('cardID', cardID);
-    //                 await this.requestActionWithCards.deleteCard(cardID);
-    //                 const cardContainer = document.getElementById(cardID);
-    //                 cardContainer.remove();
-
-    //             }
-    //         });
-    //     });
-    // }
 
     _openModal() {
         const modal = document.getElementById("showMoreModal");

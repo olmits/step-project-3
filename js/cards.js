@@ -2,7 +2,7 @@ import {VisitTherapist} from './visit-therapist.js';
 import {VisitСardiologist} from './visit-cardiologist.js';
 import {VisitDentist} from './visit-dentist.js';
 import {Draggable} from "./drag-drop-object.js";
-import {sheduleItems} from "./shedule-component.js";
+import {sheduleItems, emptyState} from "./shedule-component.js";
 
 const addCard = document.querySelector('.container-item__header-add-card');
 const cardModal = document.querySelector('.container-item__modal');
@@ -82,6 +82,8 @@ class Modal {
         }
         await this.newVisit.init();
         
+        emptyState.style.display = 'none';
+
         const cardContainer = new Draggable(this.newVisit);
         cardContainer.appendTo(mainContainer);
         // TODO: Check if response is NULL and throw an error
