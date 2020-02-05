@@ -14,9 +14,6 @@ export class VisitCards {
         const token = await auth.loginUser("test321@gmail.com", "Testuser!");
         this.requestActionWithCards = new ActionWithCards(token);
         await this._renderCards();
-        await this._openModal();
-        await this._closeModal();
-        await this._updateDataInCard();
     }
 
     async _renderCards() {
@@ -57,8 +54,15 @@ export class VisitCards {
             emptyState.style.display = 'block';
         }
     }
+}
     
+export class ShowMore {
 
+    constructor() {
+        this._openModal();
+        this._closeModal();
+        this._updateDataInCard();
+    }
     _openModal() {
         const modal = document.getElementById("showMoreModal");
         const btnShowMore = document.querySelectorAll(".card-item_btn-show-more");
