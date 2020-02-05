@@ -72,8 +72,10 @@ export class Visit extends Shedule {
         sheduleItems[i].container.destroy()
         sheduleItems.splice(i, 1);
     }
-    _handleMoreBtn(){
-        const modalProcessing = new ShowMore(showMoreModal, showMoreCloseBtn);
+    async _handleMoreBtn(){
+        const cardId = this._more.dataset.btnId;
+        const cardData = await this.requestActionWithCards.getCard(cardId);
+        const modalProcessing = new ShowMore(showMoreModal, showMoreCloseBtn, cardData);
         modalProcessing.openModal();
     }
     _listenMoreBtn(){
