@@ -1,6 +1,7 @@
 import {SheduleException} from "./shedule-exceptions.js";
 
 export const sheduleItems = [];
+export const emptyState = document.querySelector('.empty-state-wrapper');
 
 export class Shedule {
     _el
@@ -23,7 +24,43 @@ export class Shedule {
         }
         this._el = element;
     }
+    _checkItemExistence(){
+        // TODO: find better desicion
+        (sheduleItems.length < 2 ? emptyState.style.display = 'block' : emptyState.style.display = 'none');
+    }
     destroy(){
+        this._checkItemExistence();
+    }
+}
 
+export class Modal {
+
+    constructor(modal, closeBtn){
+        this._modal = modal;
+        this._closeBtn = closeBtn;
+    }
+    openModal() {
+        this._modal.style.display = "block";
+        this._handleModalClosing();
+    }
+    closeModal = (t, event) => {
+        if (event.target == t) {
+            this._closeModalFunction();
+        }
+    }
+    _closeModalFunction() {
+        this._modal.style.display = "none";
+        this._removeListeners()
+    }
+    _handleModalClosing() {
+        this.closeModalButton = this.closeModal.bind(this, this._closeBtn)
+        this._closeBtn.addEventListener('click', this.closeModalButton);
+
+        this.closeModalWindow = this.closeModal.bind(this, this._modal)
+        window.addEventListener('click', this.closeModalWindow);
+    }
+    _removeListeners() {
+        this._closeBtn.removeEventListener('click', this.closeModalButton);
+        window.removeEventListener('click', this.closeModalWindow);
     }
 }

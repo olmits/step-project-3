@@ -1,7 +1,8 @@
 import {LocalStorageHelper} from "./local-storage-helper.js";
 import {ActionWithCards, Auth} from "./action-with-cards.js";
 import {Shedule, sheduleItems} from "./shedule-component.js";
-import {Draggable} from "./drag-drop-object.js";
+import {ShowMore, showMoreModal, showMoreCloseBtn} from "./visit-cards.js";
+
 
 
 export class Visit extends Shedule {
@@ -58,8 +59,9 @@ export class Visit extends Shedule {
         this._el.append(infoDoctor);
         this._el.append(this._more);
         this._listenRemove();
-        
+        this._listenMoreBtn();
     }
+
     async _handleRemoving(){
         const cardId = this._remove.dataset.btnId;
         await this.requestActionWithCards.deleteCard(cardId);
@@ -70,12 +72,21 @@ export class Visit extends Shedule {
         sheduleItems[i].container.destroy()
         sheduleItems.splice(i, 1);
     }
+    _handleMoreBtn(){
+        const modalProcessing = new ShowMore(showMoreModal, showMoreCloseBtn);
+        modalProcessing.openModal();
+    }
+    _listenMoreBtn(){
+        this._handleMoreBtn = this._handleMoreBtn.bind(this);
+        this._more.addEventListener('click', this._handleMoreBtn)
+    }
     _listenRemove(){
         this._handleRemoving = this._handleRemoving.bind(this);
         this._remove.addEventListener('click', this._handleRemoving);
     }
     destroy() {
         this._el.remove()
+        this._more.removeEventListener('click', this._handleMoreBtn);
         this._remove.removeEventListener('click', this._handleRemoving);
         super.destroy();
     }

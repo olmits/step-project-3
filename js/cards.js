@@ -2,57 +2,48 @@ import {VisitTherapist} from './visit-therapist.js';
 import {VisitСardiologist} from './visit-cardiologist.js';
 import {VisitDentist} from './visit-dentist.js';
 import {Draggable} from "./drag-drop-object.js";
-import {sheduleItems} from "./shedule-component.js";
+import {Modal, sheduleItems, emptyState} from "./shedule-component.js";
 
-const addCard = document.querySelector('.container-item__header-add-card');
-const cardModal = document.querySelector('.container-item__modal');
-const cardForm = document.querySelector('.container-item__modal-form');
-const cardCloseBtn = document.querySelector('.container-item__modal-close');
-const cardFormSelect = document.querySelector('.container-item__modal-form-select');
-const cardFormSubmitBtn = document.querySelector('.container-item__modal-form-submit');
-const cardPatientField = document.querySelector('.patient-info-field');
 const mainContainer = document.querySelector('.container-item__board-space');
 
+const addCard = document.querySelector('.container-item__header-add-card');
+const addCardModal = document.querySelector('.container-item__modal');
+const addCardForm = document.querySelector('.container-item__modal-form');
+const addCardCloseBtn = document.querySelector('.container-item__modal-close');
+const addCardFormSelect = document.querySelector('.container-item__modal-form-select');
+const addCardPatientField = document.querySelector('.patient-info-field');
+
 addCard.addEventListener('click', () => {
-    const modalProcessing = new Modal(cardModal, cardForm, cardCloseBtn, cardFormSelect, cardPatientField);
+    const modalProcessing = new CardForm(addCardModal, addCardForm, addCardCloseBtn, addCardFormSelect, addCardPatientField);
     modalProcessing.openModal()
 });
 
 
-class Modal {
+class CardForm extends Modal {
 
     newVisit = null;
 
     constructor(modal, form, closeBtn, formSelector, patientField) {
-        this.modal = modal;
-        this.form = form;
-        this.closeBtn = closeBtn;
-        this.submitBtn = cardFormSubmitBtn;
-        this.formSelector = formSelector;
-        this.patientField = patientField;
+        super(modal, closeBtn)
+        this._form = form;
+        this._formSelector = formSelector;
+        this._patientField = patientField;
     }
 
     openModal = () => {
-        this.modal.style.display = "block";
+        super.openModal();
         this._handleSelect();
-        this._handleModalClosing(); 
         this._handleFormSubmit();
     }
-    closeModal = (t, event) => {
-        if (event.target == t) {
-            this._closeModalFunction();
-        }
-    }
     _closeModalFunction() {
-        this.modal.style.display = "none";
+        super._closeModalFunction();
         this._resetModalForm();
-        this._removeListeners();
     }
     
     async proceedSubmit(event) {
         event.preventDefault();
 
-        let userData = new FormData(this.form);
+        let userData = new FormData(this._form);
         userData = Object.fromEntries(userData);
         if (userData.doctor === 'dentist') {
             this.newVisit = new VisitDentist(
@@ -82,6 +73,8 @@ class Modal {
         }
         await this.newVisit.init();
         
+        emptyState.style.display = 'none';
+
         const cardContainer = new Draggable(this.newVisit);
         cardContainer.appendTo(mainContainer);
         // TODO: Check if response is NULL and throw an error
@@ -90,26 +83,26 @@ class Modal {
         this._closeModalFunction();
     };
     proceedSelect = (event) => {
-        this.formSelector.querySelector('option[value=""]').disabled = true;
-        this.form.dataset.medicineType = event.target.value;
+        this._formSelector.querySelector('option[value=""]').disabled = true;
+        this._form.dataset.medicineType = event.target.value;
         
-        this.patientField.innerHTML = "";
-        this.patientField.append(this._createPatientInput('title', 'text', 'general-info'));
-        this.patientField.append(this._createPatientInput('name', 'text', 'user-content'));
-        this.patientField.append(this._createPatientInput('current-visit-date', 'date', 'user-content'));
+        this._patientField.innerHTML = "";
+        this._patientField.append(this._createPatientInput('title', 'text', 'general-info'));
+        this._patientField.append(this._createPatientInput('name', 'text', 'user-content'));
+        this._patientField.append(this._createPatientInput('current-visit-date', 'date', 'user-content'));
         
         switch (event.target.value) {
             case 'therapist':
-                this.patientField.append(this._createPatientInput('age', 'text', 'user-content'));
+                this._patientField.append(this._createPatientInput('age', 'text', 'user-content'));
                 break;
             case 'cardiologist':
-                this.patientField.append(this._createPatientInput('bp', 'text', 'user-content'));
-                this.patientField.append(this._createPatientInput('weight', 'text', 'user-content'));
-                this.patientField.append(this._createPatientInput('heartIllness', 'text', 'user-content'));
-                this.patientField.append(this._createPatientInput('age', 'text', 'user-content'));
+                this._patientField.append(this._createPatientInput('bp', 'text', 'user-content'));
+                this._patientField.append(this._createPatientInput('weight', 'text', 'user-content'));
+                this._patientField.append(this._createPatientInput('heartIllness', 'text', 'user-content'));
+                this._patientField.append(this._createPatientInput('age', 'text', 'user-content'));
                 break;
             case 'dentist':
-                this.patientField.append(this._createPatientInput('last-visit-date', 'date', 'user-content'));
+                this._patientField.append(this._createPatientInput('last-visit-date', 'date', 'user-content'));
                 break;
             }
     }
@@ -127,31 +120,23 @@ class Modal {
     }
 
     _resetModalForm() {
-        this.formSelector.querySelector('option[value=""]').disabled = false;
-        this.patientField.innerHTML = "";
-        this.form.dataset.medicineType ="";
-        this.form.reset();
+        this._formSelector.querySelector('option[value=""]').disabled = false;
+        this._patientField.innerHTML = "";
+        this._form.dataset.medicineType ="";
+        this._form.reset();
     }
     _handleFormSubmit() {
         this.proceedSubmit = this.proceedSubmit.bind(this);
-        this.form.addEventListener('submit', this.proceedSubmit);
-    }
-    _handleModalClosing() {
-        this.closeModalButton = this.closeModal.bind(this, this.closeBtn)
-        this.closeBtn.addEventListener('click', this.closeModalButton);
-
-        this.closeModalWindow = this.closeModal.bind(this, this.modal)
-        window.addEventListener('click', this.closeModalWindow);
+        this._form.addEventListener('submit', this.proceedSubmit);
     }
     _handleSelect() {
         this.proceedSelect = this.proceedSelect.bind(this);
-        this.formSelector.addEventListener('change', this.proceedSelect);
+        this._formSelector.addEventListener('change', this.proceedSelect);
     }
     _removeListeners() {
-        this.form.removeEventListener('submit', this.proceedSubmit);
-        this.formSelector.removeEventListener('change', this.proceedSelect);
-        this.closeBtn.removeEventListener('click', this.closeModalButton);
-        window.removeEventListener('click', this.closeModalWindow);
+        super._removeListeners()
+        this._form.removeEventListener('submit', this.proceedSubmit);
+        this._formSelector.removeEventListener('change', this.proceedSelect);
     }
 }
 
