@@ -24,5 +24,3 @@ export class RequestHelper {
         }).then((response) => response.json());
     }
 }
-
-// export default RequestHelper;

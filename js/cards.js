@@ -2,9 +2,7 @@ import {VisitTherapist} from './visit-therapist.js';
 import {VisitСardiologist} from './visit-cardiologist.js';
 import {VisitDentist} from './visit-dentist.js';
 import {Draggable} from "./drag-drop-object.js";
-import {Modal, sheduleItems, emptyState} from "./shedule-component.js";
-
-const mainContainer = document.querySelector('.container-item__board-space');
+import {sheduleItems, mainContainer, emptyState, Modal} from "./shedule-component.js";
 
 const addCard = document.querySelector('.container-item__header-add-card');
 const addCardModal = document.querySelector('.container-item__modal');
