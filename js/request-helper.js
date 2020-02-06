@@ -4,7 +4,7 @@ export class RequestHelper {
     
     _handleError(response){
         if (!response.ok) {
-            throw SheduleException(response.statusText);
+            throw new SheduleException(response.statusText);
         }
         return response;
     }
@@ -19,7 +19,7 @@ export class RequestHelper {
             }
 
         })
-        .then(this._handleError(response))
+        .then(this._handleError)
         .then((response) => response.json())
         .catch(function(error){
             console.log(error);
@@ -36,7 +36,7 @@ export class RequestHelper {
             },
             body: JSON.stringify(obj)
         })
-        .then(this._handleError(response))
+        .then(this._handleError)
         .then((response) => response.json())
         .catch(function(error){
             console.log(error);

@@ -1,7 +1,8 @@
 import {LocalStorageHelper} from "./local-storage-helper.js";
 import {ActionWithCards, Auth} from "./action-with-cards.js";
+import {SheduleException} from "./shedule-exceptions.js";
 import {Shedule, sheduleItems} from "./shedule-component.js";
-import {ShowMore, showMoreModal, showMoreCloseBtn} from "./visit-cards.js";
+import {ShowMore, showMoreModal, showMoreCloseBtn} from "./card-form-modals.js";
 
 
 
@@ -17,17 +18,15 @@ export class Visit extends Shedule {
         this.storageHelper = new LocalStorageHelper();
         const auth = new Auth();
         const token = await auth.loginUser("test321@gmail.com", "Testuser!");
-        this.requestActionWithCards = new ActionWithCards(token);
-        
+        this._requestActionWithCards = new ActionWithCards(token);
         
     }
     async _postData(data) {
-        // TODO: Trow error if not an object
-        // TODO: Trow error in case of invalid data
-        // TODO: Trow error in case of ERORR response
-        
-        this._response = await this.requestActionWithCards.createCard(data)
-        
+        if (typeof(data) !== 'object') {
+            throw new SheduleException(`Error: ${data} must be an object`);
+        }
+        this._response = await this._requestActionWithCards.createCard(data)
+
         console.log('POST - Response: ', this._response);
         this.createLayout('div', {'class': 'card-item', 'id': this._response.id}, this._response);
         
@@ -64,11 +63,18 @@ export class Visit extends Shedule {
     }
 
     async _handleRemoving(){
+        if (this._remove === 'undefined') {
+            throw new SheduleException(`Error: ${this._remove} is undefined`);
+        }
+        if (!this._remove.hasAttribute('data-btn-id')) {
+            throw new SheduleException(`Error: ${this._remove} doesn't contain card-id`);
+        }
         const cardId = this._remove.dataset.btnId;
-        await this.requestActionWithCards.deleteCard(cardId);
-        // TODO: Trow error if not an object
-        // TODO: Trow error in case of params abscent
+        await this._requestActionWithCards.deleteCard(cardId);
         const i = sheduleItems.findIndex( el => el.item._el === this._el);
+        if (i == -1) {
+            throw new SheduleException(`Error: ${sheduleItems} Array doesn't contain such item: 'item._el === ${this._el}'`)
+        }
         sheduleItems[i].item.destroy()
         sheduleItems[i].container.destroy()
         sheduleItems.splice(i, 1);
@@ -76,8 +82,8 @@ export class Visit extends Shedule {
     }
     async _handleMoreBtn(){
         const cardId = this._more.dataset.btnId;
-        const cardData = await this.requestActionWithCards.getCard(cardId);
-        const modalProcessing = new ShowMore(showMoreModal, showMoreCloseBtn, cardData, this.requestActionWithCards);
+        const cardData = await this._requestActionWithCards.getCard(cardId);
+        const modalProcessing = new ShowMore(showMoreModal, showMoreCloseBtn, cardData, this._requestActionWithCards);
         modalProcessing.openModal();
     }
     _listenMoreBtn(){
@@ -95,5 +101,3 @@ export class Visit extends Shedule {
         super.destroy();
     }
 }
-
-
