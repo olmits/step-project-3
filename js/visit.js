@@ -1,7 +1,6 @@
 import {LocalStorageHelper} from "./local-storage-helper.js";
 import {ActionWithCards, Auth} from "./action-with-cards.js";
-import {SheduleException} from "./shedule-exceptions.js";
-import {Shedule, sheduleItems} from "./shedule-component.js";
+import {Shedule, SheduleException, sheduleItems} from "./shedule-component.js";
 import {ShowMore} from "./card-form-modals.js";
 
 

@@ -1,4 +1,4 @@
-import {SheduleException} from "./shedule-exceptions.js";
+import {SheduleException} from "./shedule-component.js";
 
 export class RequestHelper {
     

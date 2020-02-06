@@ -1,5 +1,3 @@
-import {SheduleException} from "./shedule-exceptions.js";
-
 export const sheduleItems = [];
 export const emptyState = document.querySelector('.empty-state-wrapper');
 export const mainContainer = document.querySelector('.container-item__board-space');
@@ -87,5 +85,11 @@ export class Modal {
         this._form.removeEventListener('submit', this.proceedSubmit);
         this._closeBtn.removeEventListener('click', this.closeModalButton);
         window.removeEventListener('click', this.closeModalWindow);
+    }
+}
+
+export class SheduleException extends Error {
+    constructor(...args) {
+        super(...args);
     }
 }

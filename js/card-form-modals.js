@@ -196,9 +196,14 @@ export class ShowMore  extends Modal {
                 alert('Sorry, this card is broken');
         }
         
+        if (submitData.content.name !== this._cardData.content.name) {
+            const cardLayout = document.getElementById(this._cardId);
+            const cardUserName = cardLayout.querySelector('.card-item_visitor-name');
+            cardUserName.innerText = submitData.content.name;
+        }
+
         await this._requestActionWithCards.updateCard(submitData, this._cardId);
         this._closeModalFunction();
-
     }
     _resetModalForm() {
         this._doctorSelected.disabled = false;
