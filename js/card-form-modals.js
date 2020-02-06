@@ -160,15 +160,18 @@ export class ShowMore  extends Modal {
         this._patientField.append(this._createPatientInput('name', 'text', 'user-content', cardData.content.name));
         this._patientField.append(this._createPatientInput('current-visit-date', 'date', 'user-content', cardData.content.date));
         switch (cardData.doctor) {
+            case 'therapist':
+                this._patientField.append(this._createPatientInput('age', 'text', 'user-content', cardData.content.age));
+                break;
             case 'cardiologist':
-            
+                this._patientField.append(this._createPatientInput('bp', 'text', 'user-content', cardData.content.bp));
+                this._patientField.append(this._createPatientInput('weight', 'text', 'user-content', cardData.content.weight));
+                this._patientField.append(this._createPatientInput('heartIllness', 'text', 'user-content', cardData.content.heartIllness));
+                this._patientField.append(this._createPatientInput('age', 'text', 'user-content', cardData.content.age));
                 break;
             case 'dentist':
+                this._patientField.append(this._createPatientInput('last-visit-date', 'date', 'user-content', cardData.content.dateOfLastVisit));
                 break;
-            case 'therapist':
-                break;
-            default:
-                alert('Sorry, this card is broken');
         }
     }
     _renderDataInCard0(cardData) {
