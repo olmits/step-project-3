@@ -32,4 +32,3 @@ export class LocalStorageHelper {
           localStorage.setItem('cards', JSON.stringify(newArr));
      }
 }
-

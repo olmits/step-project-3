@@ -2,7 +2,7 @@ import {ActionWithCards, Auth} from "./action-with-cards.js";
 import {LocalStorageHelper} from "./local-storage-helper.js";
 import {Visit} from './visit.js';
 import {Draggable} from "./drag-drop-object.js";
-import {sheduleItems, emptyState, Modal} from "./shedule-component.js";
+import {sheduleItems, mainContainer, emptyState, Modal} from "./shedule-component.js";
 
 export const showMoreModal = document.getElementById("showMoreModal");
 export const showMoreCloseBtn = document.querySelector(".modal-close");
@@ -15,45 +15,36 @@ export class VisitCards {
         this.storageHelper = new LocalStorageHelper();
         const auth = new Auth();
         const token = await auth.loginUser("test321@gmail.com", "Testuser!");
-        this.requestActionWithCards = new ActionWithCards(token);
+        this._requestActionWithCards = new ActionWithCards(token);
         await this._renderCards();
     }
 
+    _prepareVisitCard(card){
+        const cardVisit = new Visit(card.title, card.content.date, card.content.name);
+        cardVisit.init();
+        cardVisit.createLayout('div', {'class': 'card-item', 'id': card.id}, card);
+
+        const cardContainer = new Draggable(cardVisit);
+        cardContainer.appendTo(mainContainer);
+        sheduleItems.push({item: cardVisit, container: cardContainer});
+    }
+
     async _renderCards() {
-        const mainContainer = document.querySelector('.container-item__board-space');
         const lsData = localStorage.getItem('cards');
         if(lsData === '' || lsData === null) {
-            console.log(1);
-            
-            const arrOfCards = await this.requestActionWithCards.getCards();
+            const arrOfCards = await this._requestActionWithCards.getCards();
             
             emptyState.style.display = 'none';
             
-            arrOfCards.forEach(card => {
-                const cardVisit = new Visit(card.title, card.content.date, card.content.name);
-                cardVisit.createLayout('div', {'class': 'card-item', 'id': card.id}, card);
-
-                const cardContainer = new Draggable(cardVisit);
-                cardContainer.appendTo(mainContainer);
-                sheduleItems.push({item: cardVisit, container: cardContainer});
-            });
+            arrOfCards.forEach(card => this._prepareVisitCard(card));
             
         } else if ((typeof(lsData) === 'string') && (lsData !== '[]')) {
             const arrOfCardsLS = this.storageHelper.getDataFromLC();
             
             emptyState.style.display = 'none';
             
-            arrOfCardsLS.forEach(card => {
-                const cardVisit = new Visit(card.title, card.content.date, card.content.name);
-                cardVisit.init();
-                cardVisit.createLayout('div', {'class': 'card-item', 'id': card.id}, card);
-                
-                const cardContainer = new Draggable(cardVisit);
-                cardContainer.appendTo(mainContainer);
-                sheduleItems.push({item: cardVisit, container: cardContainer});
-            });
+            arrOfCardsLS.forEach(card => this._prepareVisitCard(card));
         } else {
-            console.log(3);
             emptyState.style.display = 'block';
         }
     }
@@ -61,9 +52,10 @@ export class VisitCards {
     
 export class ShowMore  extends Modal {
 
-    constructor(modal, closeBtn, cardData) {
+    constructor(modal, closeBtn, cardData, requestActionWithCards) {
         super(modal, closeBtn)
         this._cardData = cardData;
+        this._requestActionWithCards = requestActionWithCards;
         this._updateDataInCard();
     }
     openModal(){
@@ -174,17 +166,17 @@ export class ShowMore  extends Modal {
             switch (doctorType) {
                 case 'cardiologist':
                     event.preventDefault();
-                    await this.requestActionWithCards.updateCard(cardiologist, cardId);
+                    await this._requestActionWithCards.updateCard(cardiologist, cardId);
                     await btnCloseModal.click();
                     break;
                 case 'dentist':
                     event.preventDefault();
-                    await this.requestActionWithCards.updateCard(dentist, cardId);
+                    await this._requestActionWithCards.updateCard(dentist, cardId);
                     await btnCloseModal.click();
                     break;
                 case 'therapist':
                     event.preventDefault();
-                    await this.requestActionWithCards.updateCard(therapist, cardId);
+                    await this._requestActionWithCards.updateCard(therapist, cardId);
                     await btnCloseModal.click();
                     break;
                 default:

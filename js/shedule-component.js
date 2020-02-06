@@ -2,6 +2,7 @@ import {SheduleException} from "./shedule-exceptions.js";
 
 export const sheduleItems = [];
 export const emptyState = document.querySelector('.empty-state-wrapper');
+export const mainContainer = document.querySelector('.container-item__board-space');
 
 export class Shedule {
     _el
@@ -25,12 +26,9 @@ export class Shedule {
         this._el = element;
     }
     _checkItemExistence(){
-        // TODO: find better desicion
-        (sheduleItems.length < 2 ? emptyState.style.display = 'block' : emptyState.style.display = 'none');
+        (sheduleItems.length < 1 ? emptyState.style.display = 'block' : emptyState.style.display = 'none');
     }
-    destroy(){
-        this._checkItemExistence();
-    }
+    destroy(){}
 }
 
 export class Modal {
