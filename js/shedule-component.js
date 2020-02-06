@@ -37,21 +37,13 @@ export class Modal {
         this._form = form;
         this._modal = modal;
         this._closeBtn = closeBtn;
-        
     }
     openModal() {
         this._modal.style.display = "block";
         this._handleModalClosing();
     }
     closeModal = (t, event) => {
-        if (event.target == t) {
-            this._closeModalFunction();
-        }
-    }
-    _closeModalFunction() {
-        this._modal.style.display = "none";
-        this._removeListeners()
-        this._resetModalForm()
+        if (event.target == t) this._closeModalFunction();
     }
     _createPatientInput(name, type, dataTarget, value = '') {
         let patientInput = document.createElement('input');
@@ -60,10 +52,16 @@ export class Modal {
         patientInput.setAttribute('name', name);
         patientInput.setAttribute('type', type);
         patientInput.setAttribute('placeholder', name[0].toUpperCase() + name.substring(1).toLowerCase().replace('-', ' '));
+        if (patientInput.dataset.target === 'hidden-info') patientInput.readOnly = true;
         patientInput.value = value
         patientInput.required= true
 
         return patientInput
+    }
+    _closeModalFunction() {
+        this._modal.style.display = "none";
+        this._removeListeners()
+        this._resetModalForm()
     }
     _handleModalClosing() {
         
@@ -73,7 +71,20 @@ export class Modal {
         this.closeModalWindow = this.closeModal.bind(this, this._modal)
         window.addEventListener('click', this.closeModalWindow);
     }
+    proceedSubmit(event) {
+        if (event.preventDefault) {
+            event.preventDefault();
+        }
+        emptyState.style.display = 'none';
+        this._formData = new FormData(this._form);
+
+    }
+    _handleFormSubmit() {
+        this.proceedSubmit = this.proceedSubmit.bind(this);
+        this._form.addEventListener('submit', this.proceedSubmit);
+    }
     _removeListeners() {
+        this._form.removeEventListener('submit', this.proceedSubmit);
         this._closeBtn.removeEventListener('click', this.closeModalButton);
         window.removeEventListener('click', this.closeModalWindow);
     }

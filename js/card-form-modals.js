@@ -47,10 +47,9 @@ class CardForm extends Modal {
     }
     
     async proceedSubmit(event) {
-        event.preventDefault();
+        super.proceedSubmit(event);
 
-        let userData = new FormData(this._form);
-        userData = Object.fromEntries(userData);
+        const userData = Object.fromEntries(this._formData);
         if (userData.doctor === 'dentist') {
             this.newVisit = new VisitDentist(
                 userData["title"], 
@@ -79,11 +78,8 @@ class CardForm extends Modal {
         }
         await this.newVisit.init();
         
-        emptyState.style.display = 'none';
-
         const cardContainer = new Draggable(this.newVisit);
         cardContainer.appendTo(mainContainer);
-        // TODO: Check if response is NULL and throw an error
         sheduleItems.push({item: this.newVisit, container: cardContainer});
 
         this._closeModalFunction();
@@ -120,17 +116,12 @@ class CardForm extends Modal {
         this._form.dataset.medicineType ="";
         this._form.reset();
     }
-    _handleFormSubmit() {
-        this.proceedSubmit = this.proceedSubmit.bind(this);
-        this._form.addEventListener('submit', this.proceedSubmit);
-    }
     _handleSelect() {
         this.proceedSelect = this.proceedSelect.bind(this);
         this._formSelector.addEventListener('change', this.proceedSelect);
     }
     _removeListeners() {
         super._removeListeners()
-        this._form.removeEventListener('submit', this.proceedSubmit);
         this._formSelector.removeEventListener('change', this.proceedSelect);
     }
 }
@@ -142,20 +133,20 @@ export class ShowMore  extends Modal {
         this._cardData = cardData;
         this._patientField = this._form.querySelector('.patient-info-field');
         this._requestActionWithCards = requestActionWithCards;
-        
-        this._updateDataInCard();
     }
     openModal(){
         super.openModal();
         this._renderDataInCard(this._cardData);
+        this._handleFormSubmit();
     }
     _renderDataInCard(cardData) {
         this._doctorSelected = document.querySelector('.container-item__modal-form-select');
         this._doctorSelected.value = cardData.doctor;
         this._doctorSelected.disabled = true;
-
+        
         this._patientField = document.querySelector('.patient-info-field');
         this._patientField.innerHTML = "";
+        this._patientField.append(this._createPatientInput('doctor', 'text', 'hidden-info', cardData.doctor));
         this._patientField.append(this._createPatientInput('title', 'text', 'general-info', cardData.title));
         this._patientField.append(this._createPatientInput('name', 'text', 'user-content', cardData.content.name));
         this._patientField.append(this._createPatientInput('current-visit-date', 'date', 'user-content', cardData.content.date));
@@ -224,10 +215,42 @@ export class ShowMore  extends Modal {
                 alert('Sorry, this card is broken');
         }
     }
+    async proceedSubmit(event) {
+        super.proceedSubmit(event);
 
+        const userData = Object.fromEntries(this._formData);
+        let submitData = {
+            doctor: userData.doctor,
+            title: userData.title,
+            content: {
+                name: userData.name,
+                date: userData['current-visit-date'],
+            }
+        }
+        switch (userData.doctor) {
+            case 'cardiologist':
+                submitData.content.bp = userData.bp
+                submitData.content.weight = userData.weight
+                submitData.content.age = userData.age
+                submitData.content.heartIllness = userData.heartIllness
+                break;
+            case 'dentist':
+                submitData.content.dateOfLastVisit = userData['last-visit-date'];
+                break;
+            case 'therapist':
+                submitData.content.age = userData.age
+                break;
+            default:
+                alert('Sorry, this card is broken');
+        }
+        
+        console.log(submitData);
+
+    }
     _updateDataInCard() {
         const btnUpdate = document.querySelector('.btn-update-card');
 
+        
 
         btnUpdate.addEventListener('click', async event => {
             const purposeOfVisit = document.querySelector('.input-aim').value;
