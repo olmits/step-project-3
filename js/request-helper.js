@@ -1,15 +1,29 @@
+import {SheduleException} from "./shedule-exceptions.js";
+
 export class RequestHelper {
+    
+    _handleError(response){
+        if (!response.ok) {
+            throw SheduleException(response.statusText);
+        }
+        return response;
+    }
 
     // Get all or one card, delete card
-   static async getOrDelData(method, url, token) {
-       return await fetch(url, {
-           method: method,
-           headers: {
-               'Authorization': `Bearer ${token}`,
-               'Content-Type': 'application/json;charset=utf-8'
-           }
+    static async getOrDelData(method, url, token) {
+        return await fetch(url, {
+            method: method,
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json;charset=utf-8'
+            }
 
-       }).then((response) => response.json());
+        })
+        .then(this._handleError(response))
+        .then((response) => response.json())
+        .catch(function(error){
+            console.log(error);
+        });
     }
 
     // Post/PUT data
@@ -21,6 +35,11 @@ export class RequestHelper {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(obj)
-        }).then((response) => response.json());
+        })
+        .then(this._handleError(response))
+        .then((response) => response.json())
+        .catch(function(error){
+            console.log(error);
+        });
     }
 }

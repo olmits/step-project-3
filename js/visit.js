@@ -27,6 +27,7 @@ export class Visit extends Shedule {
         // TODO: Trow error in case of ERORR response
         
         this._response = await this.requestActionWithCards.createCard(data)
+        
         console.log('POST - Response: ', this._response);
         this.createLayout('div', {'class': 'card-item', 'id': this._response.id}, this._response);
         
