@@ -33,9 +33,11 @@ export class Shedule {
 
 export class Modal {
 
-    constructor(modal, closeBtn){
+    constructor(modal, form, closeBtn){
+        this._form = form;
         this._modal = modal;
         this._closeBtn = closeBtn;
+        
     }
     openModal() {
         this._modal.style.display = "block";
@@ -49,8 +51,22 @@ export class Modal {
     _closeModalFunction() {
         this._modal.style.display = "none";
         this._removeListeners()
+        this._resetModalForm()
+    }
+    _createPatientInput(name, type, dataTarget, value = '') {
+        let patientInput = document.createElement('input');
+
+        patientInput.dataset.target = dataTarget;
+        patientInput.setAttribute('name', name);
+        patientInput.setAttribute('type', type);
+        patientInput.setAttribute('placeholder', name[0].toUpperCase() + name.substring(1).toLowerCase().replace('-', ' '));
+        patientInput.value = value
+        patientInput.required= true
+
+        return patientInput
     }
     _handleModalClosing() {
+        
         this.closeModalButton = this.closeModal.bind(this, this._closeBtn)
         this._closeBtn.addEventListener('click', this.closeModalButton);
 

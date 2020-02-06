@@ -10,7 +10,6 @@ export class LocalStorageHelper {
 
      addItemToStorage(card) {
           const cardsArr = JSON.parse(localStorage.getItem('cards'));
-          console.log('cardsArr', cardsArr);
           cardsArr.push(card);
           localStorage.setItem('cards', JSON.stringify(cardsArr));
      }

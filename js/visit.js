@@ -2,7 +2,7 @@ import {LocalStorageHelper} from "./local-storage-helper.js";
 import {ActionWithCards, Auth} from "./action-with-cards.js";
 import {SheduleException} from "./shedule-exceptions.js";
 import {Shedule, sheduleItems} from "./shedule-component.js";
-import {ShowMore, showMoreModal, showMoreCloseBtn} from "./card-form-modals.js";
+import {ShowMore} from "./card-form-modals.js";
 
 
 
@@ -81,9 +81,17 @@ export class Visit extends Shedule {
         this._checkItemExistence();
     }
     async _handleMoreBtn(){
+        let cardData
         const cardId = this._more.dataset.btnId;
-        const cardData = await this._requestActionWithCards.getCard(cardId);
-        const modalProcessing = new ShowMore(showMoreModal, showMoreCloseBtn, cardData, this._requestActionWithCards);
+        const dataLocalStorage = this.storageHelper.getDataFromLC();
+        const i = dataLocalStorage.findIndex(el => el.id === cardId);
+        if (i !== -1) {
+            cardData = dataLocalStorage[i];
+        } else {
+            cardData = await this._requestActionWithCards.getCard(cardId);
+        }
+        
+        const modalProcessing = new ShowMore(this._requestActionWithCards, cardData);
         modalProcessing.openModal();
     }
     _listenMoreBtn(){

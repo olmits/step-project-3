@@ -4,18 +4,24 @@ import {VisitDentist} from './visit-dentist.js';
 import {Draggable} from "./drag-drop-object.js";
 import {sheduleItems, mainContainer, emptyState, Modal} from "./shedule-component.js";
 
-export const showMoreModal = document.getElementById("showMoreModal");
-export const showMoreCloseBtn = document.querySelector(".modal-close");
+// export const showMoreModal = document.getElementById("showMoreModal");
+// export const showMoreCloseBtn = document.querySelector(".modal-close");
+export const showMoreModal = document.querySelector('.container-item__modal');
+export const showMoreCloseBtn = document.querySelector('.container-item__modal-close');
+export const showMoreForm = document.querySelector('.container-item__modal-form');
+
+
+
 
 const addCard = document.querySelector('.container-item__header-add-card');
+
 const addCardModal = document.querySelector('.container-item__modal');
 const addCardForm = document.querySelector('.container-item__modal-form');
 const addCardCloseBtn = document.querySelector('.container-item__modal-close');
 const addCardFormSelect = document.querySelector('.container-item__modal-form-select');
-const addCardPatientField = document.querySelector('.patient-info-field');
 
 addCard.addEventListener('click', () => {
-    const modalProcessing = new CardForm(addCardModal, addCardForm, addCardCloseBtn, addCardFormSelect, addCardPatientField);
+    const modalProcessing = new CardForm(addCardModal, addCardForm, addCardCloseBtn, addCardFormSelect);
     modalProcessing.openModal()
 });
 
@@ -24,11 +30,10 @@ class CardForm extends Modal {
 
     newVisit = null;
 
-    constructor(modal, form, closeBtn, formSelector, patientField) {
-        super(modal, closeBtn)
-        this._form = form;
+    constructor(modal, form, closeBtn, formSelector) {
+        super(modal, form, closeBtn)
         this._formSelector = formSelector;
-        this._patientField = patientField;
+        this._patientField = this._form.querySelector('.patient-info-field');
     }
 
     openModal = () => {
@@ -86,11 +91,12 @@ class CardForm extends Modal {
     proceedSelect = (event) => {
         this._formSelector.querySelector('option[value=""]').disabled = true;
         this._form.dataset.medicineType = event.target.value;
+
         
         this._patientField.innerHTML = "";
         this._patientField.append(this._createPatientInput('title', 'text', 'general-info'));
         this._patientField.append(this._createPatientInput('name', 'text', 'user-content'));
-        this._patientField.append(this._createPatientInput('current-visit-date', 'date', 'user-content'));
+        this._patientField.append(this._createPatientInput('current-visit-date', 'date', 'user-content', "2020-01-01"));
         
         switch (event.target.value) {
             case 'therapist':
@@ -103,21 +109,9 @@ class CardForm extends Modal {
                 this._patientField.append(this._createPatientInput('age', 'text', 'user-content'));
                 break;
             case 'dentist':
-                this._patientField.append(this._createPatientInput('last-visit-date', 'date', 'user-content'));
+                this._patientField.append(this._createPatientInput('last-visit-date', 'date', 'user-content', "2020-01-01"));
                 break;
             }
-    }
-    _createPatientInput(name, type, dataTarget) {
-        let patientInput = document.createElement('input');
-
-        patientInput.dataset.target = dataTarget;
-        patientInput.setAttribute('name', name);
-        patientInput.setAttribute('type', type);
-        patientInput.setAttribute('placeholder', name[0].toUpperCase() + name.substring(1).toLowerCase().replace('-', ' '));
-        (type === 'date' ? patientInput.value = "2020-01-01" : patientInput.value = name)
-        patientInput.required= true
-
-        return patientInput
     }
 
     _resetModalForm() {
@@ -143,18 +137,41 @@ class CardForm extends Modal {
 
 export class ShowMore  extends Modal {
 
-    constructor(modal, closeBtn, cardData, requestActionWithCards) {
-        super(modal, closeBtn)
+    constructor(requestActionWithCards, cardData, modal = showMoreModal, form = showMoreForm, closeBtn = showMoreCloseBtn) {
+        super(modal, form, closeBtn);
         this._cardData = cardData;
+        this._patientField = this._form.querySelector('.patient-info-field');
         this._requestActionWithCards = requestActionWithCards;
+        
         this._updateDataInCard();
     }
     openModal(){
         super.openModal();
         this._renderDataInCard(this._cardData);
     }
-
     _renderDataInCard(cardData) {
+        this._doctorSelected = document.querySelector('.container-item__modal-form-select');
+        this._doctorSelected.value = cardData.doctor;
+        this._doctorSelected.disabled = true;
+
+        this._patientField = document.querySelector('.patient-info-field');
+        this._patientField.innerHTML = "";
+        this._patientField.append(this._createPatientInput('title', 'text', 'general-info', cardData.title));
+        this._patientField.append(this._createPatientInput('name', 'text', 'user-content', cardData.content.name));
+        this._patientField.append(this._createPatientInput('current-visit-date', 'date', 'user-content', cardData.content.date));
+        switch (cardData.doctor) {
+            case 'cardiologist':
+            
+                break;
+            case 'dentist':
+                break;
+            case 'therapist':
+                break;
+            default:
+                alert('Sorry, this card is broken');
+        }
+    }
+    _renderDataInCard0(cardData) {
         const doctorType = document.querySelector('.doctor-type');
         const purposeOfVisit = document.querySelector('.input-aim');
         const visitorName = document.querySelector('.input-name');
@@ -275,5 +292,10 @@ export class ShowMore  extends Modal {
             }
         });
     }
+    _resetModalForm() {
+        this._doctorSelected.disabled = false;
+        this._patientField.innerHTML = "";
+        this._form.dataset.medicineType ="";
+        this._form.reset();
+    }
  }
- 
