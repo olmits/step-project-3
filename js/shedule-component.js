@@ -51,6 +51,9 @@ export class Modal {
         patientInput.setAttribute('type', type);
         patientInput.setAttribute('placeholder', name[0].toUpperCase() + name.substring(1).toLowerCase().replace('-', ' '));
         if (patientInput.dataset.target === 'hidden-info') patientInput.readOnly = true;
+        if (type === 'number') patientInput.setAttribute('min', 0); // Doesn't work properly
+        if (name === 'age') patientInput.setAttribute('max', 120); // Doesn't work properly
+        if (name === 'bp') patientInput.setAttribute('pattern', '\d{1,3}\-\d{1,2}'); // Doesn't work properly
         patientInput.value = value
         patientInput.required= true
 

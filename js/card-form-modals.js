@@ -2,26 +2,17 @@ import {VisitTherapist} from './visit-therapist.js';
 import {VisitСardiologist} from './visit-cardiologist.js';
 import {VisitDentist} from './visit-dentist.js';
 import {Draggable} from "./drag-drop-object.js";
-import {sheduleItems, mainContainer, emptyState, Modal} from "./shedule-component.js";
+import {sheduleItems, mainContainer, Modal} from "./shedule-component.js";
 
-// export const showMoreModal = document.getElementById("showMoreModal");
-// export const showMoreCloseBtn = document.querySelector(".modal-close");
-export const showMoreModal = document.querySelector('.container-item__modal');
-export const showMoreCloseBtn = document.querySelector('.container-item__modal-close');
-export const showMoreForm = document.querySelector('.container-item__modal-form');
-
-
-
+const modalWindow = document.querySelector('.container-item__modal');
+const modalCloseBtn = document.querySelector('.container-item__modal-close');
+const modalForm = document.querySelector('.container-item__modal-form');
 
 const addCard = document.querySelector('.container-item__header-add-card');
-
-const addCardModal = document.querySelector('.container-item__modal');
-const addCardForm = document.querySelector('.container-item__modal-form');
-const addCardCloseBtn = document.querySelector('.container-item__modal-close');
 const addCardFormSelect = document.querySelector('.container-item__modal-form-select');
 
 addCard.addEventListener('click', () => {
-    const modalProcessing = new CardForm(addCardModal, addCardForm, addCardCloseBtn, addCardFormSelect);
+    const modalProcessing = new CardForm(modalWindow, modalForm, modalCloseBtn, addCardFormSelect);
     modalProcessing.openModal()
 });
 
@@ -96,13 +87,13 @@ class CardForm extends Modal {
         
         switch (event.target.value) {
             case 'therapist':
-                this._patientField.append(this._createPatientInput('age', 'text', 'user-content'));
+                this._patientField.append(this._createPatientInput('age', 'number', 'user-content'));
                 break;
             case 'cardiologist':
-                this._patientField.append(this._createPatientInput('bp', 'text', 'user-content'));
-                this._patientField.append(this._createPatientInput('weight', 'text', 'user-content'));
+                this._patientField.append(this._createPatientInput('bp', 'number', 'user-content'));
+                this._patientField.append(this._createPatientInput('weight', 'number', 'user-content'));
                 this._patientField.append(this._createPatientInput('heartIllness', 'text', 'user-content'));
-                this._patientField.append(this._createPatientInput('age', 'text', 'user-content'));
+                this._patientField.append(this._createPatientInput('age', 'number', 'user-content'));
                 break;
             case 'dentist':
                 this._patientField.append(this._createPatientInput('last-visit-date', 'date', 'user-content', "2020-01-01"));
@@ -128,7 +119,7 @@ class CardForm extends Modal {
 
 export class ShowMore  extends Modal {
 
-    constructor(requestActionWithCards, cardData, modal = showMoreModal, form = showMoreForm, closeBtn = showMoreCloseBtn) {
+    constructor(requestActionWithCards, cardData, modal = modalWindow, form = modalForm, closeBtn = modalCloseBtn) {
         super(modal, form, closeBtn);
         this._cardData = cardData;
         this._cardId = cardData.id;
