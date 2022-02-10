@@ -21,7 +21,7 @@
     "gulp-uglify": "^3.0.2",
     "gulp-uglify-es": "^2.0.0",
     "mathsass": "^0.11.0",
-    "node-sass": "^4.13.0"
+    "node-sass": "^7.0.0"
   },
   "bugs": {
     "url": "https://gitlab.com/olmits/dan-step-project-3/issues"
